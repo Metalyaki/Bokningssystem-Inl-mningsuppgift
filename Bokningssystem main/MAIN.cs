@@ -1,6 +1,6 @@
 ﻿namespace Bokningssystem_main
 {
-    internal class Program
+    internal class MAIN
     {
         static void Main(string[] args)
         {
