@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bokningssystem_main
 {
-    internal class Lokal
+    public abstract class Lokal
     {
+        public int Capacity {  get; set; }
+        public bool HasWhiteBoard {  get; set; }
+        public bool HasProjector { get; set; }
+
+
     }
 }
