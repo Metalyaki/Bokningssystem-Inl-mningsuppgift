@@ -5,7 +5,6 @@
 
         static void Main(string[] args)
         {
-            bool mainMenu = true;
 
             while (true) 
             {
@@ -13,15 +12,7 @@
                 bool listMenu = true;
 
                 Console.Clear();
-
-                Console.WriteLine("Bokningssytem Sigmaskolan");
-
-                Console.WriteLine("1. Bokning");
-
-                Console.WriteLine("2. Lista bokningar/lokaler");
-
-                Console.WriteLine("0. Avsluta");
-
+                PrintMainMenu();
                 string userInput = Console.ReadLine();
 
                 switch (userInput)
@@ -31,17 +22,7 @@
                         while (bookingMenu)
                         {
                             Console.Clear();
-
-                            Console.WriteLine("Bokning");
-
-                            Console.WriteLine("1. Skapa bokning");
-
-                            Console.WriteLine("2. Uppdatera bokning");
-
-                            Console.WriteLine("3. Ta bort bokning");
-
-                            Console.WriteLine("0. Backa till menyn");
-
+                            PrintBookingMenu();
                             userInput = Console.ReadLine();
 
                             switch (userInput)
@@ -77,19 +58,7 @@
                         while (listMenu)
                         {
                             Console.Clear();
-
-                            Console.WriteLine("Bokningar/Lokaler");
-
-                            Console.WriteLine("1. Se bokningar");
-
-                            Console.WriteLine("2. Sök bokning");
-
-                            Console.WriteLine("3. Se lokaler");
-
-                            Console.WriteLine("4. Skapa lokal");
-
-                            Console.WriteLine("0. Backa till menyn");
-
+                            PrintListMenu();
                             userInput = Console.ReadLine();
 
                             switch (userInput)
@@ -144,6 +113,45 @@
                 }
 
             }
+        }
+
+        static void PrintMainMenu()
+        {
+            Console.WriteLine("╔═════════════════════════════════╗");
+            Console.WriteLine("║      Bokningssystem Sigmaskolan ║");
+            Console.WriteLine("╠═════════════════════════════════╣");
+            Console.WriteLine("║   1. Bokning                    ║");
+            Console.WriteLine("║   2. Lista bokningar/lokaler    ║");
+            Console.WriteLine("║   0. Avsluta                    ║");
+            Console.WriteLine("╚═════════════════════════════════╝");
+            Console.Write("Välj ett alternativ: ");
+        }
+
+        static void PrintBookingMenu()
+        {
+            Console.WriteLine("╔═════════════════════════════════╗");
+            Console.WriteLine("║             Bokning             ║");
+            Console.WriteLine("╠═════════════════════════════════╣");
+            Console.WriteLine("║   1. Skapa bokning              ║");
+            Console.WriteLine("║   2. Uppdatera bokning          ║");
+            Console.WriteLine("║   3. Ta bort bokning            ║");
+            Console.WriteLine("║   0. Backa till menyn           ║");
+            Console.WriteLine("╚═════════════════════════════════╝");
+            Console.Write("Välj ett alternativ: ");
+        }
+
+        static void PrintListMenu()
+        {
+            Console.WriteLine("╔═════════════════════════════════╗");
+            Console.WriteLine("║         Bokningar/Lokaler       ║");
+            Console.WriteLine("╠═════════════════════════════════╣");
+            Console.WriteLine("║   1. Se bokningar               ║");
+            Console.WriteLine("║   2. Sök bokning                ║");
+            Console.WriteLine("║   3. Se lokaler                 ║");
+            Console.WriteLine("║   4. Skapa lokal                ║");
+            Console.WriteLine("║   0. Backa till menyn           ║");
+            Console.WriteLine("╚═════════════════════════════════╝");
+            Console.Write("Välj ett alternativ: ");
         }
     }
 }
