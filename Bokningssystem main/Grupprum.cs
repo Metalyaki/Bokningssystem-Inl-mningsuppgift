@@ -3,8 +3,10 @@ using System;
 
 public class Grupprum: Lokal, IBookable
 {
-	public Grupprum()
+    public string GrupprumName { get; set; }
+    public Grupprum()
 	{
+        
 	}
 
     public void BookRoom()

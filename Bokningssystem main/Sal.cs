@@ -3,7 +3,7 @@ using System;
 
 public class Sal : Lokal, IBookable
 {
-
+    public string SalName { get; set; }
     public Sal()
 	{
 	}
