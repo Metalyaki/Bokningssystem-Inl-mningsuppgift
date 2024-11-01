@@ -6,4 +6,29 @@ public class Grupprum: Lokal, IBookable
 	public Grupprum()
 	{
 	}
+
+    public void BookRoom()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ShowAvailableRooms()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ShowBookings()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UnbookRoom()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdateABooking()
+    {
+        throw new NotImplementedException();
+    }
 }
