@@ -33,13 +33,10 @@
                             switch (userInput)
                             {
                                 case "1":
-                                    SkapaBokning();
                                     break;
                                 case "2":
-                                    UppdateraBokning();
                                     break;
                                 case "3":
-                                    TaBortBokning();
                                     break;
                                 case "0":
                                     bookingMenu = false;
@@ -72,16 +69,12 @@
                             switch (userInput)
                             {
                                 case "1":
-                                    ListaBokningar();
                                     break;
                                 case "2":
-                                    SökBokningar();
                                     break;
                                 case "3":
-                                    ListaLokaler();
                                     break;
                                 case "4":
-                                    SkapaLokal();
                                     break;
                                 case "0":
                                     listMenu = false;
@@ -125,35 +118,6 @@
                 }
 
             }
-        }
-        static void SkapaBokning()
-        {
-
-        }
-
-        static void UppdateraBokning()
-        {
-
-        }
-        static void TaBortBokning()
-        {
-
-        }
-        static void ListaBokningar()
-        {
-
-        }
-        static void SökBokningar()
-        {
-
-        }
-        static void ListaLokaler()
-        {
-
-        }
-        static void SkapaLokal()
-        {
-
         }
 
         static void PrintMainMenu()
