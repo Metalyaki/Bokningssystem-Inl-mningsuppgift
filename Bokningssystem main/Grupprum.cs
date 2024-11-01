@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Bokningssystem_main;
+using System;
 
-public class Grupprum
+public class Grupprum: Lokal, IBookable
 {
 	public Grupprum()
 	{
