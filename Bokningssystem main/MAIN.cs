@@ -11,7 +11,7 @@
             lokaler.Add(new Sal("Sal 1", 30, true));
             lokaler.Add(new Grupprum("Grupprum 1", 10, true));
 
-            while (true) 
+            while (true)
             {
                 bool bookingMenu = true;
                 bool listMenu = true;
@@ -33,10 +33,46 @@
                             switch (userInput)
                             {
                                 case "1":
+                                    Console.Clear();
+                                    string roomChoice = ChooseRoomType();
+
+                                    if (roomChoice == "Sal")
+                                    {
+                                        // Metod för bokning av sal
+                                    }
+                                    else if (roomChoice == "Grupprum")
+                                    {
+                                        // Metod för bokning av grupprum
+                                    }
+                                    Thread.Sleep(1000);
                                     break;
                                 case "2":
+                                    Console.Clear();
+                                    roomChoice = ChooseRoomType();
+
+                                    if (roomChoice == "Sal")
+                                    {
+                                        // Metod för uppdater bokning av sal
+                                    }
+                                    else if (roomChoice == "Grupprum")
+                                    {
+                                        // Metod för uppdatera bokning av grupprum
+                                    }
+                                    Thread.Sleep(1000);
                                     break;
                                 case "3":
+                                    Console.Clear();
+                                    roomChoice = ChooseRoomType();
+
+                                    if (roomChoice == "Sal")
+                                    {
+                                        // Metod för ta bort bokning av sal
+                                    }
+                                    else if (roomChoice == "Grupprum")
+                                    {
+                                        // Metod för ta bort bokning av grupprum
+                                    }
+                                    Thread.Sleep(1000);
                                     break;
                                 case "0":
                                     bookingMenu = false;
@@ -69,12 +105,49 @@
                             switch (userInput)
                             {
                                 case "1":
+                                    Console.Clear();
+                                    string roomChoice = ChooseRoomType();
+
+                                    if (roomChoice == "Sal")
+                                    {
+                                        // Metod för se alla bokningar av salar
+                                    }
+                                    else if (roomChoice == "Grupprum")
+                                    {
+                                        // Metod för se alla bokningar av grupprum
+                                    }
+                                    Thread.Sleep(1000);
                                     break;
                                 case "2":
+                                    Console.Clear();
+                                    roomChoice = ChooseRoomType();
+
+                                    if (roomChoice == "Sal")
+                                    {
+                                        // Metod för lista bokningar av salar från specifikt år
+                                    }
+                                    else if (roomChoice == "Grupprum")
+                                    {
+                                        // Metod för lista bokningar av grupprum från specifikt år
+                                    }
+                                    Thread.Sleep(1000);
                                     break;
                                 case "3":
+                                    Console.Clear();
+                                    roomChoice = ChooseRoomType();
+
+                                    if (roomChoice == "Sal")
+                                    {
+                                        // Metod för se alla salar
+                                    }
+                                    else if (roomChoice == "Grupprum")
+                                    {
+                                        // Metod för se alla grupprum
+                                    }
+                                    Thread.Sleep(1000);
                                     break;
                                 case "4":
+                                    // Metod för att skapa sal
                                     break;
                                 case "0":
                                     listMenu = false;
@@ -95,7 +168,7 @@
                             }
                         }
                         break;
-                        
+
                     case "0":
                         Console.Clear();
                         Console.WriteLine("Programmet avslutas..");
@@ -157,6 +230,37 @@
             Console.WriteLine("║   0. Backa till menyn           ║");
             Console.WriteLine("╚═════════════════════════════════╝");
             Console.Write("Välj ett alternativ: ");
+        }
+
+        static string ChooseRoomType()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("╔═════════════════════════════════╗");
+                Console.WriteLine("║       Välj rumstyp              ║");
+                Console.WriteLine("╠═════════════════════════════════╣");
+                Console.WriteLine("║   1. Sal                        ║");
+                Console.WriteLine("║   2. Grupprum                   ║");
+                Console.WriteLine("╚═════════════════════════════════╝");
+                Console.Write("Välj ett alternativ (1 eller 2): ");
+
+                string choice = Console.ReadLine();
+
+                if (choice == "1")
+                {
+                    return "Sal";
+                }
+                else if (choice == "2")
+                {
+                    return "Grupprum";
+                }
+                else
+                {
+                    Console.WriteLine("Felaktigt val. Försök igen.");
+                    Thread.Sleep(1000);
+                }
+            }
         }
     }
 }
