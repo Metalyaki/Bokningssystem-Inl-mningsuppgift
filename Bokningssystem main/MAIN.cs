@@ -7,6 +7,25 @@
 
         static void Main(string[] args)
         {
+            Bokningssystem system = new Bokningssystem();
+            Filhantering filhantering = new Filhantering();
+
+            // Load existing lokaler
+            var lokaler = filhantering.LäsInLokaler();
+            foreach (var lokal in lokaler)
+            {
+                system.LäggTillLokal(lokal);
+            }
+
+            // Add new lokal
+            Sal sal = new Sal("Aula", 100, true);
+            system.LäggTillLokal(sal);
+
+            // Save lokaler
+            filhantering.SparaLokaler(system.Lokaler);
+
+            // List all lokaler
+            system.ListaAllaLokaler();
 
             lokaler.Add(new Sal("Sal 1", 30, true));
             lokaler.Add(new Grupprum("Grupprum 1", 10, true));
@@ -18,7 +37,7 @@
 
                 Console.Clear();
                 PrintMainMenu();
-                string userInput = Console.ReadLine();
+                string userInput = Console.ReadLine() ?? string.Empty;
 
                 switch (userInput)
                 {
@@ -28,7 +47,7 @@
                         {
                             Console.Clear();
                             PrintBookingMenu();
-                            userInput = Console.ReadLine();
+                            userInput = Console.ReadLine() ?? string.Empty;
 
                             switch (userInput)
                             {
@@ -78,7 +97,7 @@
                                     bookingMenu = false;
                                     break;
                                 default:
-                                    if (userInput == null)
+                                    if (string.IsNullOrEmpty(userInput))
                                     {
                                         Console.WriteLine("Inget värde angavs. Försök igen.");
                                         Thread.Sleep(1000);
@@ -100,7 +119,7 @@
                         {
                             Console.Clear();
                             PrintListMenu();
-                            userInput = Console.ReadLine();
+                            userInput = Console.ReadLine() ?? string.Empty;
 
                             switch (userInput)
                             {
