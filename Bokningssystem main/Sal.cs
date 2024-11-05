@@ -1,19 +1,48 @@
-﻿using System;
+﻿using Bokningssystem_main;
+using System;
 namespace Bokningssystem_main
 {
 
-    public class Sal : Lokal
+public class Sal : Lokal, IBookable
+{
+    public Grupprum BookGrupprum()
     {
-        public bool HarProjektor { get; set; }
-        public Sal(string namn, int kapacitet, bool harProjektor) : base(namn, kapacitet)
-        {
-            HarProjektor = harProjektor;
-        }
-        public override void VisaInfo()
-        {
-            base.VisaInfo();
-            Console.WriteLine($"Har Projektor: {HarProjektor}");
-        }
+        throw new NotImplementedException();
+    }
+
+    public Sal BookSal()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ShowAvailableRooms()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ShowBookings()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void TimerForBookings()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Grupprum UnbookGrupprum()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Sal UnbookSal()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdateABooking()
+    {
+        throw new NotImplementedException();
     }
 }
 

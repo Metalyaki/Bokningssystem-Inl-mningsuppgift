@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bokningssystem_main
 {
-     public class Lokal
+    public abstract class Lokal
     {
-        public string Namn { get; set; }
-        public int Kapacitet { get; set; }
-        public Lokal(string namn, int kapacitet)
-        {
-            Namn = namn;
-            Kapacitet = kapacitet;
-        }
-        public virtual void VisaInfo()
-        {
-            Console.WriteLine($"Namn: {Namn}, Kapacitet: {Kapacitet}");
-        }
+        public int Capacity { get; set; }
+        public bool HasWhiteBoard { get; set; }
+        public bool HasProjector { get; set; }
+
+
     }
 }
