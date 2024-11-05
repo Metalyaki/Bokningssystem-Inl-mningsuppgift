@@ -3,12 +3,12 @@ using System;
 
 public class Sal : Lokal, IBookable
 {
-    public string SalName { get; set; }
-    public Sal()
-	{
-	}
+    public Grupprum BookGrupprum()
+    {
+        throw new NotImplementedException();
+    }
 
-    public void BookRoom()
+    public Sal BookSal()
     {
         throw new NotImplementedException();
     }
@@ -23,7 +23,17 @@ public class Sal : Lokal, IBookable
         throw new NotImplementedException();
     }
 
-    public void UnbookRoom()
+    public void TimerForBookings()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Grupprum UnbookGrupprum()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Sal UnbookSal()
     {
         throw new NotImplementedException();
     }

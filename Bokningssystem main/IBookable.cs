@@ -8,11 +8,15 @@ namespace Bokningssystem_main
 {
     internal interface IBookable
     {
-        public void BookRoom();
-        public void UnbookRoom();
+        public Grupprum BookGrupprum();
+        public Sal BookSal();
+        public Grupprum UnbookGrupprum();
+        public Sal UnbookSal();
         public void ShowBookings();
         public void ShowAvailableRooms();
         public void UpdateABooking();
+
+        public void TimerForBookings();
         
     }
 }

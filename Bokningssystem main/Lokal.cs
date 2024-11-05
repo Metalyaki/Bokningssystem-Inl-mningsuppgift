@@ -8,8 +8,8 @@ namespace Bokningssystem_main
 {
     public abstract class Lokal
     {
-        public int Capacity {  get; set; }
-        public bool HasWhiteBoard {  get; set; }
+        public int Capacity { get; set; }
+        public bool HasWhiteBoard { get; set; }
         public bool HasProjector { get; set; }
 
 
