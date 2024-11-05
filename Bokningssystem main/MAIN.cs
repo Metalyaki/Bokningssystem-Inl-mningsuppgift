@@ -10,38 +10,21 @@
             List<Sal> BokadeSalar = new List<Sal>();
             List<Sal> AllaSalar = new List<Sal>();
 
-            ////Test grupprum
-            //Grupprum grupprum1 = new Grupprum();
-            //grupprum1.RoomNumber = "301";
-            //grupprum1.Capacity = 9;
-            //grupprum1.HasProjector = false;
-            //grupprum1.HasWhiteBoard = true;
-            //grupprum1.IsAvailable = true;
-
-            //Grupprum grupprum2 = new Grupprum();
-            //grupprum2.RoomNumber = "302";
-            //grupprum2.Capacity = 10;
-            //grupprum2.HasProjector = false;
-            //grupprum2.HasWhiteBoard = true;
-            //grupprum2.IsAvailable = true;
-
-            //Grupprum grupprum3 = new Grupprum();
-            //grupprum3.RoomNumber = "303";
-            //grupprum3.Capacity = 11;
-            //grupprum3.HasProjector = false;
-            //grupprum3.HasWhiteBoard = true;
-            //grupprum3.IsAvailable = true;
-            
-            //AllaGrupprum.Add(grupprum2);
-            //AllaGrupprum.Add(grupprum3);
-            //AllaGrupprum.Add(grupprum1);
-
-
-
             bool mainMenu = true;
 
-            while (true)
+            while (mainMenu)
             {
+                if (AllaGrupprum.Count >= 3 && AllaSalar.Count >= 3)
+                {
+                    AllaGrupprum.Add(new Grupprum { RoomNumber = "301" });
+                    AllaGrupprum.Add(new Grupprum { RoomNumber = "302" });
+                    AllaGrupprum.Add(new Grupprum { RoomNumber = "303" });
+
+                    AllaSalar.Add(new Sal {})
+
+                }
+
+
                 foreach (var grupprum in AllaGrupprum)
                 {
                     grupprum.TimerForBookings();
