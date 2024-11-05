@@ -1,4 +1,6 @@
-﻿namespace Bokningssystem_main
+﻿using System.Text.Json;
+
+namespace Bokningssystem_main
 {
     internal class MAIN
     {
@@ -10,20 +12,34 @@
             List<Sal> BokadeSalar = new List<Sal>();
             List<Sal> AllaSalar = new List<Sal>();
 
-            bool mainMenu = true;
+            if (File.Exists("salar.json"))
+            {
+                String loadSalar = File.ReadAllText("salar.json");
+                AllaSalar = JsonSerializer.Deserialize<List<Sal>>(loadSalar) ?? new List<Sal>();
+            }
 
+            if (File.Exists("grupprum.json"))
+            {
+                String loadGrupprum = File.ReadAllText("grupprum.json");
+                AllaGrupprum = JsonSerializer.Deserialize<List<Grupprum>>(loadGrupprum) ?? new List<Grupprum>();
+            }
+
+            if (AllaGrupprum.Count <= 3 && AllaSalar.Count <= 3)
+            {
+                AllaGrupprum.Add(new Grupprum { RoomNumber = "301" });
+                AllaGrupprum.Add(new Grupprum { RoomNumber = "302" });
+                AllaGrupprum.Add(new Grupprum { RoomNumber = "303" });
+
+                AllaSalar.Add(new Sal { RoomNumber = "201" });
+                AllaSalar.Add(new Sal { RoomNumber = "202" });
+                AllaSalar.Add(new Sal { RoomNumber = "203" });
+
+                SaveData(AllaSalar,AllaGrupprum);
+            }
+
+            bool mainMenu = true;
             while (mainMenu)
             {
-                if (AllaGrupprum.Count >= 3 && AllaSalar.Count >= 3)
-                {
-                    AllaGrupprum.Add(new Grupprum { RoomNumber = "301" });
-                    AllaGrupprum.Add(new Grupprum { RoomNumber = "302" });
-                    AllaGrupprum.Add(new Grupprum { RoomNumber = "303" });
-
-                    AllaSalar.Add(new Sal {})
-
-                }
-
 
                 foreach (var grupprum in AllaGrupprum)
                 {
@@ -260,6 +276,14 @@
                 }
 
             }
+        }
+        static void SaveData(List<Sal> allaSalar, List<Grupprum> allaGrupprum)
+        {
+            string jsonSalar = JsonSerializer.Serialize(allaSalar);
+            string jsonGrupprum = JsonSerializer.Serialize(allaGrupprum);
+
+            File.WriteAllText("salar.json", jsonSalar);
+            File.WriteAllText("grupprum.json", jsonGrupprum);
         }
 
         static void PrintMainMenu()
