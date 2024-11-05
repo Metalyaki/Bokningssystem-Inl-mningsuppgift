@@ -1,10 +1,7 @@
 ﻿namespace Bokningssystem_main
 {
     internal class MAIN
-    {
-        static List<Lokal> lokaler = new List<Lokal>();
-        static List<Bokning> bokningar = new List<Bokning>();
-
+    { 
         static void Main(string[] args)
         {
             List<Grupprum> BokadeGrupprum = new List<Grupprum>();
