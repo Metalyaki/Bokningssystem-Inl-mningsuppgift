@@ -26,13 +26,13 @@ namespace Bokningssystem_main
 
             if (AllaGrupprum.Count <= 3 && AllaSalar.Count <= 3)
             {
-                AllaGrupprum.Add(new Grupprum { RoomNumber = "301" });
-                AllaGrupprum.Add(new Grupprum { RoomNumber = "302" });
-                AllaGrupprum.Add(new Grupprum { RoomNumber = "303" });
+                AllaGrupprum.Add(new Grupprum { RoomNumber = "301", Capacity = 6, HasProjector = false, HasWhiteBoard = true });
+                AllaGrupprum.Add(new Grupprum { RoomNumber = "302", Capacity = 8, HasProjector = false, HasWhiteBoard = false });
+                AllaGrupprum.Add(new Grupprum { RoomNumber = "303", Capacity = 12, HasProjector = true, HasWhiteBoard = true });
 
-                AllaSalar.Add(new Sal { RoomNumber = "201" });
-                AllaSalar.Add(new Sal { RoomNumber = "202" });
-                AllaSalar.Add(new Sal { RoomNumber = "203" });
+                AllaSalar.Add(new Sal { RoomNumber = "201", Capacity = 33, HasProjector = true, HasWhiteBoard = false });
+                AllaSalar.Add(new Sal { RoomNumber = "202", Capacity = 40, HasProjector = true, HasWhiteBoard = true });
+                AllaSalar.Add(new Sal { RoomNumber = "203", Capacity = 28, HasProjector = false, HasWhiteBoard = true });
 
                 SaveData(AllaSalar,AllaGrupprum);
             }
