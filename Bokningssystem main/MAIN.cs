@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Reflection.Metadata.Ecma335;
+using System.Text.Json;
 
 namespace Bokningssystem_main
 {
@@ -12,19 +13,12 @@ namespace Bokningssystem_main
             List<Sal> BokadeSalar = new List<Sal>();
             List<Sal> AllaSalar = new List<Sal>();
 
-            if (File.Exists("salar.json"))
-            {
-                String loadSalar = File.ReadAllText("salar.json");
-                AllaSalar = JsonSerializer.Deserialize<List<Sal>>(loadSalar) ?? new List<Sal>();
-            }
+            AllaSalar = LoadSalar();
+            AllaGrupprum = LoadGrupprum();
+            BokadeSalar = LoadBookedSal();
+            BokadeGrupprum = LoadBookedGrupprum();
 
-            if (File.Exists("grupprum.json"))
-            {
-                String loadGrupprum = File.ReadAllText("grupprum.json");
-                AllaGrupprum = JsonSerializer.Deserialize<List<Grupprum>>(loadGrupprum) ?? new List<Grupprum>();
-            }
-
-            if (AllaGrupprum.Count <= 3 && AllaSalar.Count <= 3)
+            if (AllaGrupprum.Count < 3 && AllaSalar.Count < 3)
             {
                 AllaGrupprum.Add(new Grupprum { RoomNumber = "301", Capacity = 6, HasProjector = false, HasWhiteBoard = true });
                 AllaGrupprum.Add(new Grupprum { RoomNumber = "302", Capacity = 8, HasProjector = false, HasWhiteBoard = false });
@@ -59,8 +53,6 @@ namespace Bokningssystem_main
 
                         while (bookingMenu)
                         {
-                            
-                            
                             Console.Clear();
                             PrintBookingMenu();
                             userInput = Console.ReadLine();
@@ -74,6 +66,8 @@ namespace Bokningssystem_main
                                     if (roomChoice == "Sal")
                                     {
                                         // Metod för bokning av sal
+                                        SaveBookings(AllaSalar, AllaGrupprum);
+
                                     }
                                     else if (roomChoice == "Grupprum")
                                     {
@@ -100,6 +94,7 @@ namespace Bokningssystem_main
                                         }
 
 
+                                        SaveBookings(AllaSalar, AllaGrupprum);
 
                                     }
                                     Thread.Sleep(1000);
@@ -277,6 +272,50 @@ namespace Bokningssystem_main
 
             }
         }
+
+        static List<Sal> LoadSalar()
+        {
+            String? loadSalar= null ;
+            if (File.Exists("salar.json"))
+            {
+                loadSalar = File.ReadAllText("salar.json");
+                return JsonSerializer.Deserialize<List<Sal>>(loadSalar) ?? new List<Sal>();
+            }
+            return new List<Sal>();
+        }
+
+        static List<Grupprum> LoadGrupprum()
+        {
+            String loadGrupprum = "";
+            if (File.Exists("grupprum.json"))
+            {
+                loadGrupprum = File.ReadAllText("grupprum.json");
+                return JsonSerializer.Deserialize<List<Grupprum>>(loadGrupprum) ?? new List<Grupprum>();
+            }
+            return new List<Grupprum>();
+        }
+
+        static List<Sal> LoadBookedSal()
+        {
+            String loadSalar = "";
+            if (File.Exists("bokadeSalar.json"))
+            {
+                loadSalar = File.ReadAllText("bokadeSalar.json");
+                return JsonSerializer.Deserialize<List<Sal>>(loadSalar) ?? new List<Sal>();
+            }
+            return new List<Sal>();
+        }
+        static List<Grupprum> LoadBookedGrupprum()
+        {
+            String loadGrupprum = "";
+            if (File.Exists("bokadeGrupprum.json"))
+            {
+                loadGrupprum = File.ReadAllText("bokadeGrupprum.json");
+                return JsonSerializer.Deserialize<List<Grupprum>>(loadGrupprum) ?? new List<Grupprum>();
+            }
+            return new List <Grupprum>();
+        }
+
         static void SaveData(List<Sal> allaSalar, List<Grupprum> allaGrupprum)
         {
             string jsonSalar = JsonSerializer.Serialize(allaSalar);
@@ -284,6 +323,15 @@ namespace Bokningssystem_main
 
             File.WriteAllText("salar.json", jsonSalar);
             File.WriteAllText("grupprum.json", jsonGrupprum);
+        }
+
+        static void SaveBookings(List<Sal> bokadeSalar, List<Grupprum> bokadeGrupprum)
+        {
+            string jsonBokadeSalar = JsonSerializer.Serialize(bokadeSalar);
+            string jsonBokadeGrupprum = JsonSerializer.Serialize(bokadeGrupprum);
+
+            File.WriteAllText("bokadeSalar.json", jsonBokadeSalar);
+            File.WriteAllText("bokadeGrupprum.json", jsonBokadeGrupprum);
         }
 
         static void PrintMainMenu()
