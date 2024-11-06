@@ -178,8 +178,17 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Sal")
                                     {
-                                        // Metod för se alla bokningar av salar
-                                        
+                                        foreach (var sal in BokadeSalar)
+                                        {
+                                            if (!sal.IsAvailable)
+                                            {
+                                                sal.ShowBookings();
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Det finns inga bokningar");
+                                            }
+                                        }
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -197,6 +206,7 @@ namespace Bokningssystem_main
                                     }
                                     Thread.Sleep(1000);
                                     break;
+
                                 case "2":
                                     Console.Clear();
                                     userInput = MenuHelper.ChooseRoomType();
@@ -208,6 +218,18 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för lista bokningar av salar från specifikt år
+
+                                        Console.WriteLine("Vilket år vill du söka efter?");
+                                        int year = int.Parse(Console.ReadLine());
+
+                                        foreach (var sal in BokadeSalar)
+                                        {
+                                            if (year == sal.StartTime.Year)
+                                            {
+                                                sal.ShowBookings();
+                                                Console.ReadLine();
+                                            }
+                                        }
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -226,6 +248,7 @@ namespace Bokningssystem_main
                                     }
                                     Thread.Sleep(1000);
                                     break;
+
                                 case "3":
                                     Console.Clear();
                                     userInput = MenuHelper.ChooseRoomType();
@@ -237,6 +260,10 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för se alla salar
+                                        foreach (var sal in AllaSalar)
+                                        {
+                                            sal.ShowAvailableRooms();
+                                        }
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -250,6 +277,7 @@ namespace Bokningssystem_main
                                     }
                                     Thread.Sleep(1000);
                                     break;
+
                                 case "4":
                                     // Metod för att skapa sal
                                     DataManager.SaveData(AllaSalar, AllaGrupprum);
