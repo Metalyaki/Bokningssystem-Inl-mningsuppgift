@@ -19,4 +19,4 @@ namespace Bokningssystem_main
         public void TimerForBookings();
         
     }
-}
+} 
