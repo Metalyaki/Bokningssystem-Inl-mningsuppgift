@@ -13,6 +13,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
     public string User { get; set; }
     public Grupprum()
 	{
+
 	}
 
     public Grupprum BookGrupprum()//Anders
@@ -35,7 +36,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
                 //ParseExact försöker göra parse inputDate som en DateTime i önskat format(dd/MM/yyyy)
                 //där man har null så kan man ha speciellt format efter något land men körde null för ha default.
                 BookingDate = DateTime.ParseExact(inputDate, "dd/MM/yyyy", null);
-                if(BookingDate < DateTime.Now)
+                if(BookingDate < DateTime.Now.AddDays(-1))
                 {
                     validBookingDate = false;
                     Console.WriteLine("Kan inte boka bakåt i tiden");
@@ -62,7 +63,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
             {
                 //Sätter så tiden blir till svensk istället för default, med CultureInfo.GetCultureInfo("sv-SE")
                 StartTime = DateTime.ParseExact(inputStartTime, "HH:mm", CultureInfo.GetCultureInfo("sv-SE"));
-                if(StartTime < DateTime.Now)
+                if(StartTime < DateTime.Now && BookingDate < DateTime.Now)
                 {
                     validStartTime = false;
                     Console.WriteLine("Kan inte boka bakåt i tiden");
@@ -110,7 +111,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
             Console.WriteLine("Namn?");
             string name = Console.ReadLine();
 
-            if( name != null)
+            if( name != null || name != "")
             {
                 User = name;
                 Console.WriteLine($"Bokning av Grupprum: {RoomNumber}");
@@ -131,6 +132,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
     public Sal BookSal()
     {
         throw new NotImplementedException();
+        
     }
     
     public Sal UnbookSal()
@@ -160,7 +162,15 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
 
     public Grupprum UnbookGrupprum()
     {
-        throw new NotImplementedException();
+        IsAvailable = true;
+        DateTime unbookDateTime = new DateTime();
+        BookingDate = unbookDateTime;
+        StartTime = unbookDateTime;
+        EndTime = unbookDateTime;
+
+        User = null;
+
+        return this;
     }
 
     public void UpdateABooking()

@@ -32,9 +32,9 @@
             grupprum3.HasWhiteBoard = true;
             grupprum3.IsAvailable = true;
             
+            AllaGrupprum.Add(grupprum1);
             AllaGrupprum.Add(grupprum2);
             AllaGrupprum.Add(grupprum3);
-            AllaGrupprum.Add(grupprum1);
 
 
 
@@ -78,10 +78,12 @@
                                     }
                                     else if (roomChoice == "Grupprum")
                                     {
+
                                         //Loopar kollar vilka rum som är lediga
+                                        Console.WriteLine("[Lediga Grupprum]");
                                         foreach(var grupprum in AllaGrupprum)
                                         {
-                                            if (grupprum.IsAvailable)
+                                            if (grupprum.IsAvailable == true)
                                             {
                                                 Console.WriteLine(grupprum.ToString());
                                                 Console.WriteLine();
@@ -130,6 +132,28 @@
                                     else if (roomChoice == "Grupprum")
                                     {
                                         // Metod för ta bort bokning av grupprum
+                                        Console.WriteLine("[Bokade Grupprum]");
+                                        foreach (var grupprum in BokadeGrupprum)
+                                        {
+                                            if (grupprum.IsAvailable == false)
+                                            {
+                                                Console.WriteLine(grupprum.ToString());
+                                                Console.WriteLine();
+                                            }
+                                        }
+
+
+                                        Console.WriteLine("Ange Gruppnummer: ");
+                                        string nameOfGrupprumToUnBook = Console.ReadLine();
+
+                                        foreach (var grupprum in AllaGrupprum)
+                                        {
+                                            if (nameOfGrupprumToUnBook == grupprum.RoomNumber)
+                                            {
+                                                BokadeGrupprum.Remove(grupprum.UnbookGrupprum());
+                                            }
+
+                                        }
                                     }
                                     Thread.Sleep(1000);
                                     break;
@@ -173,16 +197,25 @@
                                     }
                                     else if (roomChoice == "Grupprum")
                                     {
-                                        foreach(var grupprum in BokadeGrupprum)
+
+                                        // Metod för se alla bokningar av Grupprum
+                                        foreach (var grupprum in BokadeGrupprum)
                                         {
-                                            if (!grupprum.IsAvailable)
-                                            {
-                                                grupprum.ShowBookings();
-                                            }
-                                            else
+                                            if (BokadeGrupprum.Count == 0)
                                             {
                                                 Console.WriteLine("Det finns inga bokningar");
                                             }
+                                            else
+                                            {
+                                                if (!grupprum.IsAvailable)
+                                                {
+                                                    grupprum.ShowBookings();
+                                                    
+                                                }
+                                                Console.ReadLine();
+                                            }
+                                            
+                                            
                                         }
                                     }
                                     Thread.Sleep(1000);
@@ -197,6 +230,7 @@
                                     }
                                     else if (roomChoice == "Grupprum")
                                     {
+                                        // Metod för lista bokningar av Grupprum från specifikt år
                                         Console.WriteLine("Vilket år vill du söka efter?");
                                         int year = int.Parse(Console.ReadLine());
 
