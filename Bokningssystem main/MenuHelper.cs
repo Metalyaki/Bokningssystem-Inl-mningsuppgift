@@ -11,7 +11,7 @@ namespace Bokningssystem_main
         public static void PrintMainMenu()
         {
             Console.WriteLine("╔═════════════════════════════════╗");
-            Console.WriteLine("║      Bokningssystem Sigmaskolan ║");
+            Console.WriteLine("║    Bokningssystem Sigmaskolan   ║");
             Console.WriteLine("╠═════════════════════════════════╣");
             Console.WriteLine("║   1. Bokning                    ║");
             Console.WriteLine("║   2. Lista bokningar/lokaler    ║");
@@ -24,7 +24,7 @@ namespace Bokningssystem_main
         public static void PrintBookingMenu()
         {
             Console.WriteLine("╔═════════════════════════════════╗");
-            Console.WriteLine("║             Bokning             ║");
+            Console.WriteLine("║            Bokning              ║");
             Console.WriteLine("╠═════════════════════════════════╣");
             Console.WriteLine("║   1. Skapa bokning              ║");
             Console.WriteLine("║   2. Uppdatera bokning          ║");
@@ -37,7 +37,7 @@ namespace Bokningssystem_main
         public static void PrintListMenu()
         {
             Console.WriteLine("╔═════════════════════════════════╗");
-            Console.WriteLine("║         Bokningar/Lokaler       ║");
+            Console.WriteLine("║        Bokningar/Lokaler        ║");
             Console.WriteLine("╠═════════════════════════════════╣");
             Console.WriteLine("║   1. Se bokningar               ║");
             Console.WriteLine("║   2. Sök bokning                ║");
