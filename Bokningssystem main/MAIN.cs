@@ -63,8 +63,8 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för bokning av sal
-                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
 
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -104,14 +104,14 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för uppdater bokning av sal
-                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
 
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
                                     {
                                         // Metod för uppdatera bokning av grupprum
-                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
 
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     Thread.Sleep(1000);
                                     break;
@@ -126,14 +126,14 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för ta bort bokning av sal
-                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
 
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
                                     {
                                         // Metod för ta bort bokning av grupprum
-                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
 
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     Thread.Sleep(1000);
                                     break;
@@ -179,6 +179,7 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för se alla bokningar av salar
+                                        
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -251,6 +252,7 @@ namespace Bokningssystem_main
                                     break;
                                 case "4":
                                     // Metod för att skapa sal
+                                    DataManager.SaveData(AllaSalar, AllaGrupprum);
                                     break;
                                 case "0":
                                     listMenu = false;
@@ -325,6 +327,9 @@ namespace Bokningssystem_main
                                                 BokadeSalar = BokadeSalar.OrderByDescending(sal => sal.CombinedDateAndTime).ToList();
                                                 Console.WriteLine("Bokningslista sorterad");
                                                 Thread.Sleep(1000);
+                                                break;
+                                            case "0":
+                                                sortingMenu = false;
                                                 break;
                                             default:
                                                 if (userInput == null)
