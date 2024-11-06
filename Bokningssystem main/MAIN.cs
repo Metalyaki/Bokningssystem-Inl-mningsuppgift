@@ -8,15 +8,10 @@ namespace Bokningssystem_main
 
         static void Main(string[] args)
         {
-            List<Grupprum> BokadeGrupprum = new List<Grupprum>();
-            List<Grupprum> AllaGrupprum = new List<Grupprum>();
-            List<Sal> BokadeSalar = new List<Sal>();
-            List<Sal> AllaSalar = new List<Sal>();
-
-            AllaSalar = LoadSalar();
-            AllaGrupprum = LoadGrupprum();
-            BokadeSalar = LoadBookedSal();
-            BokadeGrupprum = LoadBookedGrupprum();
+            List<Grupprum> BokadeGrupprum = DataManager.LoadBookedGrupprum();
+            List<Grupprum> AllaGrupprum = DataManager.LoadGrupprum();
+            List<Sal> BokadeSalar = DataManager.LoadBookedSal();
+            List<Sal> AllaSalar = DataManager.LoadSalar();
 
             if (AllaGrupprum.Count < 3 && AllaSalar.Count < 3)
             {
@@ -28,48 +23,50 @@ namespace Bokningssystem_main
                 AllaSalar.Add(new Sal { RoomNumber = "202", Capacity = 40, HasProjector = true, HasWhiteBoard = true });
                 AllaSalar.Add(new Sal { RoomNumber = "203", Capacity = 28, HasProjector = false, HasWhiteBoard = true });
 
-                SaveData(AllaSalar,AllaGrupprum);
+                DataManager.SaveData(AllaSalar,AllaGrupprum);
             }
 
             bool mainMenu = true;
             while (mainMenu)
             {
-
+                bool settingsMenu = true;
                 foreach (var grupprum in AllaGrupprum)
                 {
                     grupprum.TimerForBookings();
                 }
 
-                bool bookingMenu = true;
-                bool listMenu = true;
-
                 Console.Clear();
-                PrintMainMenu();
+                MenuHelper.PrintMainMenu();
                 string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
                     case "1":
 
+                        bool bookingMenu = true;
                         while (bookingMenu)
                         {
                             Console.Clear();
-                            PrintBookingMenu();
+                            MenuHelper.PrintBookingMenu();
                             userInput = Console.ReadLine();
 
                             switch (userInput)
                             {
                                 case "1":
                                     Console.Clear();
-                                    string roomChoice = ChooseRoomType();
+                                    userInput = MenuHelper.ChooseRoomType();
 
-                                    if (roomChoice == "Sal")
+                                    if (userInput == "0")
+                                    {
+                                        break;
+                                    }
+                                    else if (userInput == "Sal")
                                     {
                                         // Metod för bokning av sal
-                                        SaveBookings(AllaSalar, AllaGrupprum);
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
 
                                     }
-                                    else if (roomChoice == "Grupprum")
+                                    else if (userInput == "Grupprum")
                                     {
                                         //Loopar kollar vilka rum som är lediga
                                         foreach(var grupprum in AllaGrupprum)
@@ -82,7 +79,7 @@ namespace Bokningssystem_main
                                         }
                                         
                                         //Bokar rummet genom att köra bookroom metoden()
-                                        Console.WriteLine("Ange Gruppnummer: ");
+                                        Console.WriteLine("Ange rumsnummer:");
                                         string nameOfGrupprumToBook = Console.ReadLine();
 
                                         foreach(var grupprum in AllaGrupprum)
@@ -93,37 +90,50 @@ namespace Bokningssystem_main
                                             }
                                         }
 
-
-                                        SaveBookings(AllaSalar, AllaGrupprum);
-
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
-                                    Thread.Sleep(1000);
                                     break;
                                 case "2":
                                     Console.Clear();
-                                    roomChoice = ChooseRoomType();
+                                    userInput = MenuHelper.ChooseRoomType();
 
-                                    if (roomChoice == "Sal")
+                                    if (userInput == "0")
+                                    {
+                                        break;
+                                    }
+                                    else if (userInput == "Sal")
                                     {
                                         // Metod för uppdater bokning av sal
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
+
                                     }
-                                    else if (roomChoice == "Grupprum")
+                                    else if (userInput == "Grupprum")
                                     {
                                         // Metod för uppdatera bokning av grupprum
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
+
                                     }
                                     Thread.Sleep(1000);
                                     break;
                                 case "3":
                                     Console.Clear();
-                                    roomChoice = ChooseRoomType();
+                                    userInput = MenuHelper.ChooseRoomType();
 
-                                    if (roomChoice == "Sal")
+                                    if (userInput == "0")
+                                    {
+                                        break;
+                                    }
+                                    else if (userInput == "Sal")
                                     {
                                         // Metod för ta bort bokning av sal
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
+
                                     }
-                                    else if (roomChoice == "Grupprum")
+                                    else if (userInput == "Grupprum")
                                     {
                                         // Metod för ta bort bokning av grupprum
+                                        DataManager.SaveBookings(AllaSalar, AllaGrupprum);
+
                                     }
                                     Thread.Sleep(1000);
                                     break;
@@ -149,23 +159,28 @@ namespace Bokningssystem_main
 
                     case "2":
 
+                        bool listMenu = true;
                         while (listMenu)
                         {
                             Console.Clear();
-                            PrintListMenu();
+                            MenuHelper.PrintListMenu();
                             userInput = Console.ReadLine();
 
                             switch (userInput)
                             {
                                 case "1":
                                     Console.Clear();
-                                    string roomChoice = ChooseRoomType();
+                                    userInput = MenuHelper.ChooseRoomType();
 
-                                    if (roomChoice == "Sal")
+                                    if (userInput == "0")
+                                    {
+                                        break;
+                                    }
+                                    else if (userInput == "Sal")
                                     {
                                         // Metod för se alla bokningar av salar
                                     }
-                                    else if (roomChoice == "Grupprum")
+                                    else if (userInput == "Grupprum")
                                     {
                                         foreach(var grupprum in BokadeGrupprum)
                                         {
@@ -183,13 +198,17 @@ namespace Bokningssystem_main
                                     break;
                                 case "2":
                                     Console.Clear();
-                                    roomChoice = ChooseRoomType();
+                                    userInput = MenuHelper.ChooseRoomType();
 
-                                    if (roomChoice == "Sal")
+                                    if (userInput == "0")
+                                    {
+                                        break;
+                                    }
+                                    else if (userInput == "Sal")
                                     {
                                         // Metod för lista bokningar av salar från specifikt år
                                     }
-                                    else if (roomChoice == "Grupprum")
+                                    else if (userInput == "Grupprum")
                                     {
                                         Console.WriteLine("Vilket år vill du söka efter?");
                                         int year = int.Parse(Console.ReadLine());
@@ -208,13 +227,17 @@ namespace Bokningssystem_main
                                     break;
                                 case "3":
                                     Console.Clear();
-                                    roomChoice = ChooseRoomType();
+                                    userInput = MenuHelper.ChooseRoomType();
 
-                                    if (roomChoice == "Sal")
+                                    if (userInput == "0")
+                                    {
+                                        break;
+                                    }
+                                    else if (userInput == "Sal")
                                     {
                                         // Metod för se alla salar
                                     }
-                                    else if (roomChoice == "Grupprum")
+                                    else if (userInput == "Grupprum")
                                     {
                                         Console.WriteLine("[Lediga Grupprum]");
                                         // Metod för se alla grupprum
@@ -231,6 +254,144 @@ namespace Bokningssystem_main
                                     break;
                                 case "0":
                                     listMenu = false;
+                                    break;
+                                default:
+                                    if (userInput == null)
+                                    {
+                                        Console.WriteLine("Inget värde angavs. Försök igen.");
+                                        Thread.Sleep(1000);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Felaktigt menyval");
+                                        Thread.Sleep(1000);
+                                        break;
+                                    }
+                            }
+                        }
+                        break;
+                    case "3":
+                        while (settingsMenu)
+                        {
+                            Console.Clear();
+                            MenuHelper.PrintSettingsMenu();
+                            userInput = Console.ReadLine();
+                            switch (userInput)
+                            {
+                                case "1":
+
+                                    bool sortingMenu = true;
+                                    while (sortingMenu)
+                                    {
+                                        Console.Clear();
+                                        MenuHelper.PrintSortingMenu();
+                                        userInput = Console.ReadLine();
+
+                                        switch (userInput)
+                                        {
+                                            case "1":
+                                                BokadeGrupprum = BokadeGrupprum.OrderBy(gr => gr.User).ToList();
+                                                BokadeSalar = BokadeSalar.OrderBy(sal => sal.User).ToList();
+                                                Console.WriteLine("Bokningslista sorterad");
+                                                Thread.Sleep(1000);
+                                                break;
+                                            case "2":
+                                                BokadeGrupprum = BokadeGrupprum.OrderByDescending(gr => gr.User).ToList();
+                                                BokadeSalar = BokadeSalar.OrderByDescending(sal => sal.User).ToList();
+                                                Console.WriteLine("Bokningslista sorterad");
+                                                Thread.Sleep(1000);
+                                                break;
+                                            case "3":
+                                                BokadeGrupprum = BokadeGrupprum.OrderBy(gr => gr.StartTime).ToList();
+                                                BokadeSalar = BokadeSalar.OrderBy(sal => sal.StartTime).ToList();
+                                                Console.WriteLine("Bokningslista sorterad");
+                                                Thread.Sleep(1000);
+                                                break;
+                                            case "4":
+                                                BokadeGrupprum = BokadeGrupprum.OrderByDescending(gr => gr.StartTime).ToList();
+                                                BokadeSalar = BokadeSalar.OrderByDescending(sal => sal.StartTime).ToList();
+                                                Console.WriteLine("Bokningslista sorterad");
+                                                Thread.Sleep(1000);
+                                                break;
+                                            case "5":
+                                                BokadeGrupprum = BokadeGrupprum.OrderBy(gr => gr.CombinedDateAndTime).ToList();
+                                                BokadeSalar = BokadeSalar.OrderBy(sal => sal.CombinedDateAndTime).ToList();
+                                                Console.WriteLine("Bokningslista sorterad");
+                                                Thread.Sleep(1000);
+                                                break;
+                                            case "6":
+                                                BokadeGrupprum = BokadeGrupprum.OrderByDescending(gr => gr.CombinedDateAndTime).ToList();
+                                                BokadeSalar = BokadeSalar.OrderByDescending(sal => sal.CombinedDateAndTime).ToList();
+                                                Console.WriteLine("Bokningslista sorterad");
+                                                Thread.Sleep(1000);
+                                                break;
+                                            default:
+                                                if (userInput == null)
+                                                {
+                                                    Console.WriteLine("Inget värde angavs. Försök igen.");
+                                                    Thread.Sleep(1000);
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Felaktigt menyval");
+                                                    Thread.Sleep(1000);
+                                                    break;
+                                                }
+                                        }
+
+                                    }
+                                    break;
+
+                                case "2":
+
+                                    bool inColorMenu = true;
+                                    while (inColorMenu)
+                                    {
+                                        Console.Clear();
+                                        MenuHelper.PrintTextColorMenu();
+                                        userInput = Console.ReadLine();
+
+                                        switch (userInput)
+                                        {
+                                            case "1":
+                                                Console.ForegroundColor = ConsoleColor.White;
+                                                continue;
+                                            case "2":
+                                                Console.ForegroundColor = ConsoleColor.Red;
+                                                continue;
+                                            case "3":
+                                                Console.ForegroundColor = ConsoleColor.Green;
+                                                break;
+                                            case "4":
+                                                Console.ForegroundColor = ConsoleColor.Blue;
+                                                break;
+                                            case "5":
+                                                Console.ForegroundColor = ConsoleColor.Magenta;
+                                                break;
+                                            case "0":
+                                                inColorMenu = false;
+                                                break;
+                                            default:
+                                                if (userInput == null)
+                                                {
+                                                    Console.WriteLine("Inget värde angavs. Försök igen.");
+                                                    Thread.Sleep(1000);
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Felaktigt menyval");
+                                                    Thread.Sleep(1000);
+                                                    break;
+                                                }
+
+                                        }
+                                    }
+                                    break;
+                                case "0":
+                                    settingsMenu = false;
                                     break;
                                 default:
                                     if (userInput == null)
@@ -273,135 +434,5 @@ namespace Bokningssystem_main
             }
         }
 
-        static List<Sal> LoadSalar()
-        {
-            String? loadSalar= null ;
-            if (File.Exists("salar.json"))
-            {
-                loadSalar = File.ReadAllText("salar.json");
-                return JsonSerializer.Deserialize<List<Sal>>(loadSalar) ?? new List<Sal>();
-            }
-            return new List<Sal>();
-        }
-
-        static List<Grupprum> LoadGrupprum()
-        {
-            String loadGrupprum = "";
-            if (File.Exists("grupprum.json"))
-            {
-                loadGrupprum = File.ReadAllText("grupprum.json");
-                return JsonSerializer.Deserialize<List<Grupprum>>(loadGrupprum) ?? new List<Grupprum>();
-            }
-            return new List<Grupprum>();
-        }
-
-        static List<Sal> LoadBookedSal()
-        {
-            String loadSalar = "";
-            if (File.Exists("bokadeSalar.json"))
-            {
-                loadSalar = File.ReadAllText("bokadeSalar.json");
-                return JsonSerializer.Deserialize<List<Sal>>(loadSalar) ?? new List<Sal>();
-            }
-            return new List<Sal>();
-        }
-        static List<Grupprum> LoadBookedGrupprum()
-        {
-            String loadGrupprum = "";
-            if (File.Exists("bokadeGrupprum.json"))
-            {
-                loadGrupprum = File.ReadAllText("bokadeGrupprum.json");
-                return JsonSerializer.Deserialize<List<Grupprum>>(loadGrupprum) ?? new List<Grupprum>();
-            }
-            return new List <Grupprum>();
-        }
-
-        static void SaveData(List<Sal> allaSalar, List<Grupprum> allaGrupprum)
-        {
-            string jsonSalar = JsonSerializer.Serialize(allaSalar);
-            string jsonGrupprum = JsonSerializer.Serialize(allaGrupprum);
-
-            File.WriteAllText("salar.json", jsonSalar);
-            File.WriteAllText("grupprum.json", jsonGrupprum);
-        }
-
-        static void SaveBookings(List<Sal> bokadeSalar, List<Grupprum> bokadeGrupprum)
-        {
-            string jsonBokadeSalar = JsonSerializer.Serialize(bokadeSalar);
-            string jsonBokadeGrupprum = JsonSerializer.Serialize(bokadeGrupprum);
-
-            File.WriteAllText("bokadeSalar.json", jsonBokadeSalar);
-            File.WriteAllText("bokadeGrupprum.json", jsonBokadeGrupprum);
-        }
-
-        static void PrintMainMenu()
-        {
-            Console.WriteLine("╔═════════════════════════════════╗");
-            Console.WriteLine("║      Bokningssystem Sigmaskolan ║");
-            Console.WriteLine("╠═════════════════════════════════╣");
-            Console.WriteLine("║   1. Bokning                    ║");
-            Console.WriteLine("║   2. Lista bokningar/lokaler    ║");
-            Console.WriteLine("║   0. Avsluta                    ║");
-            Console.WriteLine("╚═════════════════════════════════╝");
-            Console.Write("Välj ett alternativ: ");
-        }
-
-        static void PrintBookingMenu()
-        {
-            Console.WriteLine("╔═════════════════════════════════╗");
-            Console.WriteLine("║             Bokning             ║");
-            Console.WriteLine("╠═════════════════════════════════╣");
-            Console.WriteLine("║   1. Skapa bokning              ║");
-            Console.WriteLine("║   2. Uppdatera bokning          ║");
-            Console.WriteLine("║   3. Ta bort bokning            ║");
-            Console.WriteLine("║   0. Backa till menyn           ║");
-            Console.WriteLine("╚═════════════════════════════════╝");
-            Console.Write("Välj ett alternativ: ");
-        }
-
-        static void PrintListMenu()
-        {
-            Console.WriteLine("╔═════════════════════════════════╗");
-            Console.WriteLine("║         Bokningar/Lokaler       ║");
-            Console.WriteLine("╠═════════════════════════════════╣");
-            Console.WriteLine("║   1. Se bokningar               ║");
-            Console.WriteLine("║   2. Sök bokning                ║");
-            Console.WriteLine("║   3. Se lokaler                 ║");
-            Console.WriteLine("║   4. Skapa lokal                ║");
-            Console.WriteLine("║   0. Backa till menyn           ║");
-            Console.WriteLine("╚═════════════════════════════════╝");
-            Console.Write("Välj ett alternativ: ");
-        }
-
-        static string ChooseRoomType()
-        {
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine("╔═════════════════════════════════╗");
-                Console.WriteLine("║       Välj rumstyp              ║");
-                Console.WriteLine("╠═════════════════════════════════╣");
-                Console.WriteLine("║   1. Sal                        ║");
-                Console.WriteLine("║   2. Grupprum                   ║");
-                Console.WriteLine("╚═════════════════════════════════╝");
-                Console.Write("Välj ett alternativ (1 eller 2): ");
-
-                string choice = Console.ReadLine();
-
-                if (choice == "1")
-                {
-                    return "Sal";
-                }
-                else if (choice == "2")
-                {
-                    return "Grupprum";
-                }
-                else
-                {
-                    Console.WriteLine("Felaktigt val. Försök igen.");
-                    Thread.Sleep(1000);
-                }
-            }
-        }
     }
 }
