@@ -68,7 +68,7 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Grupprum")
                                     {
-
+                                        // Metod för bokning av sal
                                         //Loopar kollar vilka rum som är lediga
                                         Console.WriteLine("[Lediga Grupprum]");
                                         foreach(var grupprum in AllaGrupprum)
