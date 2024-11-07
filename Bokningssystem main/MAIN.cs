@@ -97,7 +97,7 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Grupprum")
                                     {
-                                        // Metod för bokning av sal
+                                        // Metod för bokning av Grupprum
                                         //Loopar kollar vilka rum som är lediga
                                         Console.WriteLine("[Lediga Grupprum]");
                                         foreach(var grupprum in AllaGrupprum)
@@ -161,12 +161,12 @@ namespace Bokningssystem_main
                                     {
                                         // Metod för att ta bort bokning av sal
                                         //Loopar kollar vilka rum som är lediga
-                                        Console.WriteLine("[Lediga Grupprum]");
-                                        foreach (var grupprum in AllaGrupprum)
+                                        Console.WriteLine("[Lediga Salar]");
+                                        foreach (var sal in BokadeSalar)
                                         {
-                                            if (grupprum.IsAvailable == false)
+                                            if (sal.IsAvailable == false)
                                             {
-                                                Console.WriteLine(grupprum.ToString());
+                                                Console.WriteLine(sal.ToString());
                                                 Console.WriteLine();
                                             }
                                         }
@@ -175,11 +175,11 @@ namespace Bokningssystem_main
                                         Console.WriteLine("Ange rumsnummer:");
                                         userInput = Console.ReadLine();
 
-                                        foreach (var grupprum in AllaGrupprum)
+                                        foreach (var sal in BokadeSalar)
                                         {
-                                            if (userInput == grupprum.RoomNumber)
+                                            if (userInput == sal.RoomNumber)
                                             {
-                                                grupprum.UnbookGrupprum();
+                                                sal.UnbookGrupprum();
                                             }
 
                                         }
