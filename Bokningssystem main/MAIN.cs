@@ -109,9 +109,13 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Grupprum")
                                     {
-                                        // Metod för uppdatera bokning av grupprum
+                                        foreach (var grupprum in BokandeGrupprum)
+                                        {
+                                            grupprum.UpdateABooking();
+                                        }
 
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
+                                        }
                                     }
                                     Thread.Sleep(1000);
                                     break;
