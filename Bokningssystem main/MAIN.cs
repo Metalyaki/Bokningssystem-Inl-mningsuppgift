@@ -142,7 +142,8 @@ namespace Bokningssystem_main
                                     else if (userInput == "Grupprum")
                                     {
                                         // Metod för uppdatera bokning av grupprum
-
+                                        var grupprum = new Grupprum();
+                                        grupprum.UpdateABooking(BokadeGrupprum);
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     Thread.Sleep(1000);
@@ -157,14 +158,15 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Sal")
                                     {
-                                        
+                                        // Metod för att ta bort bokning av sal
 
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
                                     {
+                                        // Metod för att ta bort bokning av grupprum
 
-                                        
+
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     Thread.Sleep(1000);
