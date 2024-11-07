@@ -157,10 +157,11 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         BookingDate = unbookDateTime;
         StartTime = unbookDateTime;
         EndTime = unbookDateTime;
-        User = null;
+        User = "";
 
-        return null;
+        return this;
     }
+
     public void UpdateABooking(List<Grupprum> BokadeGrupprum)
     {
         if (BokadeGrupprum.Count == 0) // Kontroll om det finns några bokningar

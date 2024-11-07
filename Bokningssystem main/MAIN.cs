@@ -142,6 +142,7 @@ namespace Bokningssystem_main
                                     else if (userInput == "Grupprum")
                                     {
                                         // Metod för uppdatera bokning av grupprum
+
                                         var grupprum = new Grupprum();
                                         grupprum.UpdateABooking(BokadeGrupprum);
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
@@ -159,7 +160,29 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för att ta bort bokning av sal
+                                        //Loopar kollar vilka rum som är lediga
+                                        Console.WriteLine("[Lediga Grupprum]");
+                                        foreach (var grupprum in AllaGrupprum)
+                                        {
+                                            if (grupprum.IsAvailable == false)
+                                            {
+                                                Console.WriteLine(grupprum.ToString());
+                                                Console.WriteLine();
+                                            }
+                                        }
 
+                                        //Bokar rummet genom att köra bookroom metoden()
+                                        Console.WriteLine("Ange rumsnummer:");
+                                        userInput = Console.ReadLine();
+
+                                        foreach (var grupprum in AllaGrupprum)
+                                        {
+                                            if (userInput == grupprum.RoomNumber)
+                                            {
+                                                grupprum.UnbookGrupprum();
+                                            }
+
+                                        }
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
