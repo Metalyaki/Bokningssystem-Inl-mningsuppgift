@@ -136,7 +136,8 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för uppdater bokning av sal
-
+                                        var sal = new Sal();
+                                        sal.UpdateASalBooking(BokadeSalar);
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
