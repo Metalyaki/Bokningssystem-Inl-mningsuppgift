@@ -20,22 +20,58 @@ namespace Bokningssystem_main
 
         public Sal BookSal()
         {
-            throw new NotImplementedException();
+            if (IsAvailable)
+            {
+            IsAvailable = false;
+            Console.WriteLine("Ange användarnamn:");
+            User = Console.ReadLine();
+            Console.WriteLine("Ange starttid (yyyy-mm-dd:nn):");
+            StartTime = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("Ange sluttid (yyyy-mm-dd:mm):");
+            EndTime = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine($"Sal {RoomNumber} har bokats av {User} från {StartTime} till {EndTime}");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är redan bokad.");
+            }
+            return this;
         }
 
         public void ShowAvailableRooms()
         {
-            throw new NotImplementedException();
+            if (IsAvailable)
+            {
+                Console.WriteLine($"Sal {RoomNumber} är tillgängligt.");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är bokad.");
+            }
         }
 
         public void ShowBookings()
         {
-            throw new NotImplementedException();
+            if (!IsAvailable)
+            {
+
+                Console.WriteLine($"Sal {RoomNumber} är bokat av {User}.");
+                Console.WriteLine($"Bokningens starttid: {StartTime}");
+                Console.WriteLine($"Bokningens sluttid: {EndTime}");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
+            }
         }
 
         public void TimerForBookings()
         {
-            throw new NotImplementedException();
+            if (!IsAvailable && DateTime.Now > EndTime)
+            {
+                IsAvailable = true;
+                Console.WriteLine($"Bokningen för sal {RoomNumber} har avslutats.");
+            }
         }
 
         public Grupprum UnbookGrupprum()
@@ -45,12 +81,32 @@ namespace Bokningssystem_main
 
         public Sal UnbookSal()
         {
-            throw new NotImplementedException();
+            if (!IsAvailable)
+            {
+                IsAvailable = true;
+                Console.WriteLine($"Bokningen för sal {RoomNumber} har avbokats.");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
+            }
+            return this;
         }
 
         public void UpdateABooking()
         {
-            throw new NotImplementedException();
+            if (!IsAvailable)
+            {
+                Console.WriteLine("Ange ny starttid (yyyy-mm-dd:mm):");
+                StartTime = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("Ange ny sluttid (yyyy-mm-dd:mm):");
+                EndTime = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine($"Bookning för Sal {RoomNumber} har uppdaterats.");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
+            }
         }
 
     }
