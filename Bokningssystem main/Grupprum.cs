@@ -158,6 +158,13 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         StartTime = unbookDateTime;
         EndTime = unbookDateTime;
 
+    public void UpdateABooking(List<Grupprum> BokadeGrupprum)
+    {
+        if (BokadeGrupprum.Count == 0) // KOllar om de finns nå bokningar
+        {
+            Console.WriteLine("Det finns inga bokade grupprum att uppdatera.");
+            return;
+        }
         User = null;
 
         return this;
@@ -188,7 +195,8 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         return $"Grupprum: {RoomNumber}" +
             $"\n Kapacitet: {Capacity}" +
             $"\n Projektor: {HasProjector}" +
-            $"\n Whiteboard: {HasWhiteBoard}";
+            $"\n Whiteboard: {HasWhiteBoard}" +
+            $"\n Signatur: {User}";
     }
     public Sal BookSal()
     {

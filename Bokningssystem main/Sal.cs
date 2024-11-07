@@ -177,9 +177,104 @@ namespace Bokningssystem_main
             return this;
         }
 
-        public void UpdateABooking()
+        public void UpdateABooking(List<Grupprum> BokadeGrupprum)
         {
-            throw new NotImplementedException();
+            if (BokadeGrupprum.Count == 0) // KOllar om de finns nå bokningar
+            {
+                Console.WriteLine("Det finns inga bokade grupprum att uppdatera.");
+                return;
+            }
+
+            Console.WriteLine("Bokade Grupprum: ");
+            for (int i = 0; i < BokadeGrupprum.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. Rumsnummer: {BokadeGrupprum[i].RoomNumber},");
+                Console.WriteLine($"Datum: {BokadeGrupprum[i].BookingDate:dd/MM/yyyy},");
+                Console.WriteLine($"Starttid: {BokadeGrupprum[i].StartTime:HH:mm},");
+                Console.WriteLine($"Sluttid: {BokadeGrupprum[i].EndTime:HH:mm},");
+                Console.WriteLine($"Användare: {BokadeGrupprum[i].User}");
+            }
+
+            int selection = 0;
+            bool validSelection = false;
+            while (!validSelection) // loopar tills användaren ger ett svar som är godkänt
+            {
+                try
+                {
+                    Console.WriteLine("Välj numret för grupprummet du vill uppdatera:");
+                    selection = int.Parse(Console.ReadLine());
+
+                    if (selection < 1 || selection > BokadeGrupprum.Count) // kollar så input är inom giltligt intervall
+                    {
+                        throw new FormatException("Numret finns inte med i listan var god försök igen.");
+                    }
+
+                    validSelection = true; // avbryter loopen om input är giltlig
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("Felaktig val, ange ett giltligt nummer. " + ex.Message);
+                }
+            }
+
+            Grupprum updateRoom = BokadeGrupprum[selection - 1]; // hämtar den valda bokningen
+
+            bool validDate = false;
+            while (!validDate) // loopar tills input är giltligt datum
+            {
+                try
+                {
+                    Console.WriteLine("Ange nytt datum för bokningen (format: dd/MM/yyyy): ");
+                    updateRoom.BookingDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
+
+                    if (updateRoom.BookingDate > DateTime.Now.Date) // kollar så inte datumet varit redan
+                    {
+                        throw new FormatException("Du kan inte skriva in ett datum som redan varit.");
+                    }
+
+                    validDate = true;
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("Felaktigt datum. " + ex.Message);
+                }
+            }
+
+            bool validStartTime = false;
+            while (!validStartTime)
+            {
+                try
+                {
+                    Console.WriteLine("Ange ny starttid: (format: HH:mm): ");
+                    updateRoom.StartTime = DateTime.ParseExact(Console.ReadLine(), "HH:mm", null);
+                    validStartTime = true;
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("Ogiltlig tid. " + ex.Message);
+                }
+            }
+
+            try
+            {
+                Console.WriteLine("Hur många timmar vill du boka?");
+                int hours = int.Parse(Console.ReadLine());
+                Console.WriteLine("Hur många minuter vill du boka?");
+                int minutes = int.Parse(Console.ReadLine());
+
+                updateRoom.EndTime = updateRoom.StartTime.AddHours(hours).AddMinutes(minutes);  // Beräknar sluttiden baserat på starttid och användarens inmatning
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Ange ett tal. " + ex.Message);
+            }
+
+            Console.WriteLine("Ange namn för den som ska stå på bokningen:");
+            string newUser = Console.ReadLine().Trim();
+            updateRoom.User = newUser;
+
+            updateRoom.IsAvailable = false; // Markerar bokningen som upptagen
+            Console.WriteLine("Bokningen har uppdaterats.");
         }
 
         public override string ToString()

@@ -111,11 +111,11 @@ namespace Bokningssystem_main
                                         
                                         //Bokar rummet genom att köra bookroom metoden()
                                         Console.WriteLine("Ange rumsnummer:");
-                                        string nameOfGrupprumToBook = Console.ReadLine();
+                                        userInput = Console.ReadLine();
 
                                         foreach(var grupprum in AllaGrupprum)
                                         {
-                                            if(nameOfGrupprumToBook == grupprum.RoomNumber)
+                                            if(userInput == grupprum.RoomNumber)
                                             {
                                                 BokadeGrupprum.Add(grupprum.BookGrupprum());
                                             }
@@ -157,14 +157,14 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Sal")
                                     {
-                                        // Metod för ta bort bokning av sal
+                                        
 
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
                                     {
-                                        // Metod för ta bort bokning av grupprum
 
+                                        
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     Thread.Sleep(1000);
