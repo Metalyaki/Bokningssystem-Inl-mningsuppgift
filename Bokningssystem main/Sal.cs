@@ -14,10 +14,6 @@ namespace Bokningssystem_main
         public DateTime EndTime { get; set; }
         public string User { get; set; }
 
-        public Grupprum BookGrupprum()
-        {
-            throw new NotImplementedException();
-        }
 
         public Sal BookSal()
         {
@@ -30,7 +26,7 @@ namespace Bokningssystem_main
 
             while (!validBookingDate)
             {
-                Console.WriteLine($"Bokning av Grupprum: {RoomNumber}");
+                Console.WriteLine($"Bokning av Sal: {RoomNumber}");
                 Console.WriteLine("Ange datum för bokningen(dd/MM/yyyy)");
                 string inputDate = Console.ReadLine();
 
@@ -117,7 +113,7 @@ namespace Bokningssystem_main
                 if (name != null || name != "")
                 {
                     User = name;
-                    Console.WriteLine($"Bokning av Grupprum: {RoomNumber}");
+                    Console.WriteLine($"Bokning av Sal: {RoomNumber}");
                     Console.WriteLine($"Datum: {CombinedDateAndTime.ToString("dd/MM/yyyy")}");
                     Console.WriteLine($"Start tid: {CombinedDateAndTime.ToString("HH:mm")}");
                     Console.WriteLine($"Slut tid: {EndTime.ToString("HH:mm")}");
@@ -135,30 +131,70 @@ namespace Bokningssystem_main
 
         public void ShowAvailableRooms()
         {
-            throw new NotImplementedException();
+            if (IsAvailable == true)
+            {
+                Console.WriteLine($"Sal: {RoomNumber}" +
+                $"\n Kapacitet: {Capacity}" +
+                $"\n Projektor: {HasProjector}" +
+                $"\n Whiteboard: {HasWhiteBoard}");
+            }
         }
 
         public void ShowBookings()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Bokning av Sal: {RoomNumber}");
+            Console.WriteLine($"Datum: {CombinedDateAndTime.ToString("dd/MM/yyyy")}");
+            Console.WriteLine($"Start tid: {CombinedDateAndTime.ToString("HH:mm")}");
+            Console.WriteLine($"Slut tid: {EndTime.ToString("HH:mm")}");
+            Console.WriteLine($"Signerat av: {User}");
         }
 
         public void TimerForBookings()
         {
-            throw new NotImplementedException();
+            DateTime currentTime = DateTime.Now;
+
+            if (currentTime >= EndTime)
+            {
+                IsAvailable = true;
+            }
+            else
+            {
+                IsAvailable = false;
+            }
         }
 
-        public Grupprum UnbookGrupprum()
-        {
-            throw new NotImplementedException();
-        }
 
         public Sal UnbookSal()
         {
-            throw new NotImplementedException();
+            IsAvailable = true;
+            DateTime unbookDateTime = new DateTime();
+            BookingDate = unbookDateTime;
+            StartTime = unbookDateTime;
+            EndTime = unbookDateTime;
+
+            User = null;
+
+            return this;
         }
 
         public void UpdateABooking()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            //Skriver ut vad rummen innehåller
+            return $"Sal: {RoomNumber}" +
+                $"\n Kapacitet: {Capacity}" +
+                $"\n Projektor: {HasProjector}" +
+                $"\n Whiteboard: {HasWhiteBoard}";
+        }
+        public Grupprum BookGrupprum()
+        {
+            throw new NotImplementedException();
+        }
+        public Grupprum UnbookGrupprum()
         {
             throw new NotImplementedException();
         }

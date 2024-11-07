@@ -129,16 +129,6 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         return this;
 
     }
-    public Sal BookSal()
-    {
-        throw new NotImplementedException();
-        
-    }
-    
-    public Sal UnbookSal()
-    {
-        throw new NotImplementedException();
-    }
 
     public void ShowAvailableRooms()
     { 
@@ -199,6 +189,16 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
             $"\n Kapacitet: {Capacity}" +
             $"\n Projektor: {HasProjector}" +
             $"\n Whiteboard: {HasWhiteBoard}";
+    }
+    public Sal BookSal()
+    {
+        throw new NotImplementedException();
+        
+    }
+    
+    public Sal UnbookSal()
+    {
+        throw new NotImplementedException();
     }
 
 }
