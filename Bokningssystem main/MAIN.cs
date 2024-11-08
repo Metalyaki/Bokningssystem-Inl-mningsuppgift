@@ -82,16 +82,22 @@ namespace Bokningssystem_main
                                         //Bokar rummet genom att köra bookroom metoden()
                                         Console.WriteLine("Ange rumsnummer:");
                                         string nameOfSalToBook = Console.ReadLine();
+                                        bool foundFreeSal = false;
 
                                         foreach (var sal in AllaSalar)
                                         {
                                             if (nameOfSalToBook == sal.RoomNumber)
                                             {
+                                                foundFreeSal = true;
                                                 BokadeSalar.Add(sal.BookSal());
                                             }
                                             
                                         }
-
+                                        if (!foundFreeSal)
+                                        {
+                                            Console.WriteLine($"Hitta ingen lediga sal med rumsnummer: {nameOfSalToBook}");
+                                            Console.ReadLine();
+                                        }
 
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
@@ -111,15 +117,22 @@ namespace Bokningssystem_main
                                         
                                         //Bokar rummet genom att köra bookroom metoden()
                                         Console.WriteLine("Ange rumsnummer:");
-                                        userInput = Console.ReadLine();
+                                        bool foundFreeGrupprum = false;
+                                        string nameOfGrupprumToBook = Console.ReadLine();
 
-                                        foreach(var grupprum in AllaGrupprum)
+                                        foreach (var grupprum in AllaGrupprum)
                                         {
-                                            if(userInput == grupprum.RoomNumber)
+                                            if(nameOfGrupprumToBook == grupprum.RoomNumber)
                                             {
+                                                foundFreeGrupprum = true;
                                                 BokadeGrupprum.Add(grupprum.BookGrupprum());
                                             }
                                             
+                                        }
+                                        if (!foundFreeGrupprum)
+                                        {
+                                            Console.WriteLine($"Hitta ingen lediga sal med rumsnummer: {nameOfGrupprumToBook}");
+                                            Console.ReadLine();
                                         }
 
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
@@ -135,7 +148,7 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Sal")
                                     {
-                                        // Metod för uppdater bokning av sal
+                                        // Metod för uppdatera bokning av sal
                                         var sal = new Sal();
                                         sal.UpdateASalBooking(BokadeSalar);
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
@@ -161,35 +174,79 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för att ta bort bokning av sal
-                                        //Loopar kollar vilka rum som är lediga
-                                        Console.WriteLine("[Lediga Salar]");
+                                        //Loopar kollar vilka rum som är bokade och av vem
+                                        Console.WriteLine("[Bokade Salar]");
                                         foreach (var sal in BokadeSalar)
                                         {
                                             if (sal.IsAvailable == false)
                                             {
-                                                Console.WriteLine(sal.ToString());
+                                                sal.ShowBookings();
                                                 Console.WriteLine();
                                             }
                                         }
 
-                                        //Bokar rummet genom att köra bookroom metoden()
+                                        
                                         Console.WriteLine("Ange rumsnummer:");
-                                        userInput = Console.ReadLine();
+                                        string unbookSal = Console.ReadLine();
 
+                                        Console.WriteLine("Ange namn:");
+                                        string name = Console.ReadLine();
+
+                                        bool foundSal = false;
                                         foreach (var sal in BokadeSalar)
                                         {
-                                            if (userInput == sal.RoomNumber)
+                                            if (unbookSal == sal.RoomNumber && name == sal.User)
                                             {
-                                                sal.UnbookGrupprum();
+                                                foundSal = true;
+                                                sal.UnbookSal();
+                                                Console.WriteLine($"Avbokade Grupprum: {unbookSal}");
                                             }
 
+                                        }
+                                        if (!foundSal)
+                                        {
+                                            Console.WriteLine($"Hittade inga grupprumsnummer: {unbookSal} under namnet: {name}");
+                                            Console.ReadLine();
                                         }
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
                                     else if (userInput == "Grupprum")
                                     {
                                         // Metod för att ta bort bokning av grupprum
+                                        //Loopar kollar vilka rum som är bokade och av vem
+                                        Console.WriteLine("[Bokade Grupprum]");
+                                        foreach (var grupprum in BokadeGrupprum)
+                                        {
+                                            if (grupprum.IsAvailable == false)
+                                            {
+                                                grupprum.ShowBookings();
+                                                Console.WriteLine();
+                                            }
+                                        }
 
+                                        
+                                        Console.WriteLine("Ange rumsnummer:");
+                                        string unbookGrupprum = Console.ReadLine();
+
+                                        Console.WriteLine("Ange namn:");
+                                        string name = Console.ReadLine();
+
+                                        bool foundGrupprum = false;
+                                        foreach (var grupprum in BokadeGrupprum)
+                                        {
+                                            if (unbookGrupprum == grupprum.RoomNumber && name == grupprum.User)
+                                            {
+                                                foundGrupprum = true;
+                                                grupprum.UnbookGrupprum();
+                                                Console.WriteLine($"Avbokade Grupprum: {unbookGrupprum}");
+                                            }
+
+                                        }
+                                        if (!foundGrupprum)
+                                        {
+                                            Console.WriteLine($"Hittade inga grupprumsnummer: {unbookGrupprum} under namnet: {name}");
+                                            Console.ReadLine();
+                                        }
 
                                         DataManager.SaveBookings(AllaSalar, AllaGrupprum);
                                     }
@@ -236,27 +293,44 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Sal")
                                     {
+                                        bool foundBookedSal = false;
                                         // Metod för se alla bokningar av salar
                                         foreach (var sal in BokadeSalar)
                                         {
-                                            sal.ShowBookings();
+                                            if (!sal.IsAvailable)
+                                            {
+                                                foundBookedSal = true;
+                                                sal.ShowBookings();
+                                                Console.WriteLine();
+                                            }
+                                            
+                                            
+                                        }
+                                        if (!foundBookedSal)
+                                        {
+                                            Console.WriteLine("Det finns inga bokade Salar");
                                             
                                         }
                                         Console.ReadLine();
                                     }
                                     else if (userInput == "Grupprum")
                                     {
-                                        foreach(var grupprum in BokadeGrupprum)
+                                        // Metod för se alla bokningar av Grupprum
+                                        bool foundBookedGrupprum = false;
+                                        foreach (var grupprum in BokadeGrupprum)
                                         {
                                             if (!grupprum.IsAvailable)
                                             {
+                                                foundBookedGrupprum = true;
                                                 grupprum.ShowBookings();
                                                 Console.WriteLine();
                                             }
-                                            else 
-                                            {
-                                                Console.WriteLine("Det finns inga bokningar");
-                                            }
+                                            
+                                        }
+                                        if (!foundBookedGrupprum)
+                                        {
+                                            Console.WriteLine("Det finns inga bokade Grupprum");
+                                            
                                         }
                                         Console.ReadLine();
                                     }
@@ -299,10 +373,7 @@ namespace Bokningssystem_main
                                             {
                                                 grupprum.ShowBookings();
                                             }
-                                            else
-                                            {
-                                                Console.WriteLine($"Hittade ingen bokning under året: {year}");
-                                            }
+                                           
 
                                         }
                                     }
@@ -320,7 +391,13 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Sal")
                                     {
-                                        // Metod för se alla salar
+                                        Console.WriteLine("[Lediga Salar]");
+                                        // Metod för se alla grupprum
+                                        foreach (var sal in AllaSalar)
+                                        {
+                                            sal.ShowAvailableRooms();
+                                        }
+                                        Console.ReadLine();
                                     }
                                     else if (userInput == "Grupprum")
                                     {

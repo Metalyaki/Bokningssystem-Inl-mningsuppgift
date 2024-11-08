@@ -154,6 +154,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
     {
         IsAvailable = true;
         DateTime unbookDateTime = new DateTime();
+        CombinedDateAndTime = unbookDateTime;
         BookingDate = unbookDateTime;
         StartTime = unbookDateTime;
         EndTime = unbookDateTime;
@@ -288,8 +289,8 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         return $"Grupprum: {RoomNumber}" +
             $"\n Kapacitet: {Capacity}" +
             $"\n Projektor: {HasProjector}" +
-            $"\n Whiteboard: {HasWhiteBoard}" +
-            $"\n Signatur: {User}";
+            $"\n Whiteboard: {HasWhiteBoard}";
+            
     }
     public Sal BookSal()
     {

@@ -169,6 +169,7 @@ namespace Bokningssystem_main
         {
             IsAvailable = true;
             DateTime unbookDateTime = new DateTime();
+            CombinedDateAndTime = unbookDateTime;
             BookingDate = unbookDateTime;
             StartTime = unbookDateTime;
             EndTime = unbookDateTime;
