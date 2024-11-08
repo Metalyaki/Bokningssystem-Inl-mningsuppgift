@@ -246,14 +246,22 @@ namespace Bokningssystem_main
                                     }
                                     else if (userInput == "Grupprum")
                                     {
-                                        // Metod för se alla bokningar av Grupprum
-                                        foreach (var grupprum in BokadeGrupprum)
+                                        foreach(var grupprum in BokadeGrupprum)
                                         {
-                                            grupprum.ShowBookings();
-                                            
+                                            if (!grupprum.IsAvailable)
+                                            {
+                                                grupprum.ShowBookings();
+                                                Console.WriteLine();
+                                            }
+                                            else 
+                                            {
+                                                Console.WriteLine("Det finns inga bokningar");
+                                            }
                                         }
                                         Console.ReadLine();
                                     }
+                                    Console.WriteLine("Tryck valfri tangent för att återgå till menyn");
+                                    Console.ReadKey();
                                     Thread.Sleep(1000);
                                     break;
                                 case "2":
@@ -267,6 +275,17 @@ namespace Bokningssystem_main
                                     else if (userInput == "Sal")
                                     {
                                         // Metod för lista bokningar av salar från specifikt år
+
+                                        Console.WriteLine("Vilket år vill du söka efter?");
+                                        int year = int.Parse(Console.ReadLine());
+
+                                        foreach (var sal in BokadeSalar)
+                                        {
+                                            if (year == sal.StartTime.Year)
+                                            {
+                                                sal.ShowBookings();
+                                            }
+                                        }
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -279,7 +298,6 @@ namespace Bokningssystem_main
                                             if (year == grupprum.StartTime.Year)
                                             {
                                                 grupprum.ShowBookings();
-                                                Console.ReadLine();
                                             }
                                             else
                                             {
@@ -288,6 +306,8 @@ namespace Bokningssystem_main
 
                                         }
                                     }
+                                    Console.WriteLine("Tryck valfri tangent för att återgå till menyn");
+                                    Console.ReadKey();
                                     Thread.Sleep(1000);
                                     break;
                                 case "3":
