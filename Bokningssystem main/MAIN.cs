@@ -311,7 +311,7 @@ namespace Bokningssystem_main
                                             Console.WriteLine("Det finns inga bokade Salar");
                                             
                                         }
-                                        Console.ReadLine();
+                                        
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -332,7 +332,7 @@ namespace Bokningssystem_main
                                             Console.WriteLine("Det finns inga bokade Grupprum");
                                             
                                         }
-                                        Console.ReadLine();
+                                        
                                     }
                                     Console.WriteLine("Tryck valfri tangent för att återgå till menyn");
                                     Console.ReadKey();
