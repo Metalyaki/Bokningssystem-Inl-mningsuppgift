@@ -54,8 +54,9 @@ namespace Bokningssystem_main
 
         public static void SaveData(List<Sal> allaSalar, List<Grupprum> allaGrupprum)
         {
-            string jsonSalar = JsonSerializer.Serialize(allaSalar);
-            string jsonGrupprum = JsonSerializer.Serialize(allaGrupprum);
+            //New JSOptions är för att göra Jsonfilen lättare läst
+            string jsonSalar = JsonSerializer.Serialize(allaSalar, new JsonSerializerOptions { WriteIndented = true });
+            string jsonGrupprum = JsonSerializer.Serialize(allaGrupprum, new JsonSerializerOptions { WriteIndented = true });
 
             File.WriteAllText("salar.json", jsonSalar);
             File.WriteAllText("grupprum.json", jsonGrupprum);
@@ -63,11 +64,12 @@ namespace Bokningssystem_main
 
         public static void SaveBookings(List<Sal> bokadeSalar, List<Grupprum> bokadeGrupprum)
         {
-            string jsonBokadeSalar = JsonSerializer.Serialize(bokadeSalar);
-            string jsonBokadeGrupprum = JsonSerializer.Serialize(bokadeGrupprum);
+            
+            string jsonBokadeSalar = JsonSerializer.Serialize(bokadeSalar, new JsonSerializerOptions { WriteIndented = true });
+            string jsonBokadeGrupprum = JsonSerializer.Serialize(bokadeGrupprum, new JsonSerializerOptions { WriteIndented = true });
 
-            File.WriteAllText("bokadeSalar.json", jsonBokadeSalar);
             File.WriteAllText("bokadeGrupprum.json", jsonBokadeGrupprum);
+            File.WriteAllText("bokadeSalar.json", jsonBokadeSalar);
         }
     }
 }
