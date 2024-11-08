@@ -358,6 +358,7 @@ namespace Bokningssystem_main
                         }
                         break;
                     case "3":
+                        settingsMenu = true;
                         while (settingsMenu)
                         {
                             Console.Clear();

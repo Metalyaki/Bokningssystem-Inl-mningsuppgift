@@ -147,6 +147,7 @@ namespace Bokningssystem_main
             Console.WriteLine($"Start tid: {CombinedDateAndTime.ToString("HH:mm")}");
             Console.WriteLine($"Slut tid: {EndTime.ToString("HH:mm")}");
             Console.WriteLine($"Signerat av: {User}");
+            Console.WriteLine();
         }
 
         public void TimerForBookings()
@@ -186,15 +187,17 @@ namespace Bokningssystem_main
             }
 
             Console.WriteLine("Bokade Salar: ");
+            int displayIndex = 1; // Här gör jag så numreringen börjar från 1
             for (int i = 0; i < BokadeSalar.Count; i++)
             {
                 if (!BokadeSalar[i].IsAvailable) // Visar endast bokade grupprum
                 {
-                    Console.WriteLine($"{i + 1}. Salnummer: {BokadeSalar[i].RoomNumber},");
+                    Console.WriteLine($"{displayIndex}. Salnummer: {BokadeSalar[i].RoomNumber},");
                     Console.WriteLine($"Datum: {BokadeSalar[i].BookingDate:dd/MM/yyyy},");
                     Console.WriteLine($"Starttid: {BokadeSalar[i].StartTime:HH:mm},");
                     Console.WriteLine($"Sluttid: {BokadeSalar[i].EndTime:HH:mm},");
                     Console.WriteLine($"Användare: {BokadeSalar[i].User}");
+                    displayIndex++;
                 }
             }
 
