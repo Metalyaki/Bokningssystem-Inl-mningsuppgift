@@ -14,8 +14,6 @@ namespace Bokningssystem_main
         public Sal UnbookSal();
         public void ShowBookings();
         public void ShowAvailableRooms();
-        public void UpdateABooking(List<Grupprum> BokadeGrupprum);
-
         public void TimerForBookings();
         
     }

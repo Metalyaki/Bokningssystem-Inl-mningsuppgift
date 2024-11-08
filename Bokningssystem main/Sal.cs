@@ -147,6 +147,7 @@ namespace Bokningssystem_main
             Console.WriteLine($"Start tid: {CombinedDateAndTime.ToString("HH:mm")}");
             Console.WriteLine($"Slut tid: {EndTime.ToString("HH:mm")}");
             Console.WriteLine($"Signerat av: {User}");
+            Console.WriteLine();
         }
 
         public void TimerForBookings()
@@ -177,22 +178,27 @@ namespace Bokningssystem_main
             return this;
         }
 
-        public void UpdateABooking(List<Grupprum> BokadeGrupprum)
+        public void UpdateASalBooking(List<Sal> BokadeSalar)
         {
-            if (BokadeGrupprum.Count == 0) // KOllar om de finns nå bokningar
+            if (BokadeSalar.Count == 0) // Kollar om de finns nå bokningar
             {
-                Console.WriteLine("Det finns inga bokade grupprum att uppdatera.");
+                Console.WriteLine("Det finns inga bokade salar att uppdatera.");
                 return;
             }
 
-            Console.WriteLine("Bokade Grupprum: ");
-            for (int i = 0; i < BokadeGrupprum.Count; i++)
+            Console.WriteLine("Bokade Salar: ");
+            int displayIndex = 1; // Här gör jag så numreringen börjar från 1
+            for (int i = 0; i < BokadeSalar.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. Rumsnummer: {BokadeGrupprum[i].RoomNumber},");
-                Console.WriteLine($"Datum: {BokadeGrupprum[i].BookingDate:dd/MM/yyyy},");
-                Console.WriteLine($"Starttid: {BokadeGrupprum[i].StartTime:HH:mm},");
-                Console.WriteLine($"Sluttid: {BokadeGrupprum[i].EndTime:HH:mm},");
-                Console.WriteLine($"Användare: {BokadeGrupprum[i].User}");
+                if (!BokadeSalar[i].IsAvailable) // Visar endast bokade grupprum
+                {
+                    Console.WriteLine($"{displayIndex}. Salnummer: {BokadeSalar[i].RoomNumber},");
+                    Console.WriteLine($"Datum: {BokadeSalar[i].BookingDate:dd/MM/yyyy},");
+                    Console.WriteLine($"Starttid: {BokadeSalar[i].StartTime:HH:mm},");
+                    Console.WriteLine($"Sluttid: {BokadeSalar[i].EndTime:HH:mm},");
+                    Console.WriteLine($"Användare: {BokadeSalar[i].User}");
+                    displayIndex++;
+                }
             }
 
             int selection = 0;
@@ -201,10 +207,10 @@ namespace Bokningssystem_main
             {
                 try
                 {
-                    Console.WriteLine("Välj numret för grupprummet du vill uppdatera:");
+                    Console.WriteLine("Välj numret för salen du vill uppdatera:");
                     selection = int.Parse(Console.ReadLine());
 
-                    if (selection < 1 || selection > BokadeGrupprum.Count) // kollar så input är inom giltligt intervall
+                    if (selection < 1 || selection > BokadeSalar.Count) // kollar så input är inom giltligt intervall
                     {
                         throw new FormatException("Numret finns inte med i listan var god försök igen.");
                     }
@@ -217,7 +223,7 @@ namespace Bokningssystem_main
                 }
             }
 
-            Grupprum updateRoom = BokadeGrupprum[selection - 1]; // hämtar den valda bokningen
+            Sal updateRoom = BokadeSalar[selection - 1]; // hämtar den valda bokningen
 
             bool validDate = false;
             while (!validDate) // loopar tills input är giltligt datum
@@ -227,7 +233,7 @@ namespace Bokningssystem_main
                     Console.WriteLine("Ange nytt datum för bokningen (format: dd/MM/yyyy): ");
                     updateRoom.BookingDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
 
-                    if (updateRoom.BookingDate > DateTime.Now.Date) // kollar så inte datumet varit redan
+                    if (updateRoom.BookingDate < DateTime.Now.Date) // kollar så inte datumet varit redan
                     {
                         throw new FormatException("Du kan inte skriva in ett datum som redan varit.");
                     }
