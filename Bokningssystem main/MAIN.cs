@@ -254,7 +254,7 @@ namespace Bokningssystem_main
                                     bookingMenu = false;
                                     break;
                                 default:
-                                    if (userInput == null)
+                                    if (string.IsNullOrEmpty(userInput))
                                     {
                                         Console.WriteLine("Inget värde angavs. Försök igen.");
                                         Thread.Sleep(1000);
