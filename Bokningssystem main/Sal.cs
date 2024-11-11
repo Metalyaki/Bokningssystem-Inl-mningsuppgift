@@ -17,25 +17,31 @@ namespace Bokningssystem_main
 
         public Sal BookSal()
         {
-            //Tider, som jag ska använda sen genom att kolla så när startTime blir lika som endTime så ska något avslutas
+            //Skapar en ny instans av rummet så att man kan skapa flera tider på samma rum
+            //annars blir det att man skriver över tidigare data om man förösker skapa ny tid på ett rum
+            //Sätter newBooking framför variabler så de vet att det är nytt och inte skriver över gamla
+            Sal newBooking = new Sal()
+            {
+                RoomNumber = this.RoomNumber,
+                IsAvailable = false // Markera som bokad när bokningen är klar
+            };
+
+
             bool validBookingDate = false;
             bool validStartTime = false;
             bool validHourAndMinutes = false;
             bool validName = false;
 
-
             while (!validBookingDate)
             {
-                Console.WriteLine($"Bokning av Sal: {RoomNumber}");
-                Console.WriteLine("Ange datum för bokningen(dd/MM/yyyy)");
+                Console.WriteLine($"Bokning av Sal: {newBooking.RoomNumber}");
+                Console.WriteLine("Ange datum för bokningen (dd/MM/yyyy)");
                 string inputDate = Console.ReadLine();
 
                 try
                 {
-                    //ParseExact försöker göra parse inputDate som en DateTime i önskat format(dd/MM/yyyy)
-                    //där man har null så kan man ha speciellt format efter något land men körde null för ha default.
-                    BookingDate = DateTime.ParseExact(inputDate, "dd/MM/yyyy", null);
-                    if (BookingDate < DateTime.Now.AddDays(-1))
+                    newBooking.BookingDate = DateTime.ParseExact(inputDate, "dd/MM/yyyy", null);
+                    if (newBooking.BookingDate < DateTime.Now.AddDays(-1))
                     {
                         validBookingDate = false;
                         Console.WriteLine("Kan inte boka bakåt i tiden");
@@ -44,25 +50,23 @@ namespace Bokningssystem_main
                     {
                         validBookingDate = true;
                     }
-
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("Vänligen ange korrekt format på datumet!(dd/MM/yyyy) " + ex.Message);
+                    Console.WriteLine("Vänligen ange korrekt format på datumet (dd/MM/yyyy) " + ex.Message);
                 }
-
             }
 
             while (!validStartTime)
             {
-                Console.WriteLine("Ange tid för bokningen(HH:mm)");
+                Console.WriteLine("Ange tid för bokningen (HH:mm)");
                 string inputStartTime = Console.ReadLine();
 
                 try
                 {
-                    //Sätter så tiden blir till svensk istället för default, med CultureInfo.GetCultureInfo("sv-SE")
-                    StartTime = DateTime.ParseExact(inputStartTime, "HH:mm", CultureInfo.GetCultureInfo("sv-SE"));
-                    if (StartTime < DateTime.Now && BookingDate < DateTime.Now)
+                    //Parse exakt den tid jag vill ha och istället för null/default så vill jag ha svensk tid
+                    newBooking.StartTime = DateTime.ParseExact(inputStartTime, "HH:mm", CultureInfo.GetCultureInfo("sv-SE"));
+                    if (newBooking.StartTime < DateTime.Now && newBooking.BookingDate < DateTime.Now)
                     {
                         validStartTime = false;
                         Console.WriteLine("Kan inte boka bakåt i tiden");
@@ -70,17 +74,15 @@ namespace Bokningssystem_main
                     else
                     {
                         validStartTime = true;
-
                     }
-
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("Vänligen ange korrekt format på tiden!(HH:mm) " + ex.Message);
+                    Console.WriteLine("Vänligen ange korrekt format på tiden (HH:mm) " + ex.Message);
                 }
             }
 
-            CombinedDateAndTime = BookingDate.AddHours(StartTime.Hour).AddMinutes(StartTime.Minute);
+            newBooking.CombinedDateAndTime = newBooking.BookingDate.AddHours(newBooking.StartTime.Hour).AddMinutes(newBooking.StartTime.Minute);
 
             while (!validHourAndMinutes)
             {
@@ -93,41 +95,44 @@ namespace Bokningssystem_main
 
                     validHourAndMinutes = true;
 
-                    //här ger jag endTime värde genom att lägga till hour och minutes på CombinedDateAndTime
-                    EndTime = CombinedDateAndTime.AddHours(hour).AddMinutes(minutes);
-
+                    // Ger endTime värde genom att lägga till hour och minutes på CombinedDateAndTime
+                    newBooking.EndTime = newBooking.CombinedDateAndTime.AddHours(hour).AddMinutes(minutes);
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("Vänligen ange ett tal, inte en bokstav eller tecken " + ex.Message);
+                    Console.WriteLine("Vänligen ange ett tal" + ex.Message);
                 }
             }
-
-
 
             while (!validName)
             {
                 Console.WriteLine("Namn?");
                 string name = Console.ReadLine();
 
-                if (name != null || name != "")
+                if (!string.IsNullOrEmpty(name))
                 {
-                    User = name;
-                    Console.WriteLine($"Bokning av Sal: {RoomNumber}");
-                    Console.WriteLine($"Datum: {CombinedDateAndTime.ToString("dd/MM/yyyy")}");
-                    Console.WriteLine($"Start tid: {CombinedDateAndTime.ToString("HH:mm")}");
-                    Console.WriteLine($"Slut tid: {EndTime.ToString("HH:mm")}");
-                    Console.WriteLine($"Signerat av: {User}");
+                    newBooking.User = name;
+                    Console.WriteLine($"Bokning av Sal: {newBooking.RoomNumber}");
+                    Console.WriteLine($"Datum: {newBooking.CombinedDateAndTime:dd/MM/yyyy}");
+                    Console.WriteLine($"Start tid: {newBooking.CombinedDateAndTime:HH:mm}");
+                    Console.WriteLine($"Slut tid: {newBooking.EndTime:HH:mm}");
+                    Console.WriteLine($"Signerat av: {newBooking.User}");
                     validName = true;
                     Console.ReadKey();
-
                 }
             }
-            //gör isAvailable till false, för det är den variabeln man kollar om man kollar om rum är lediga.
-            IsAvailable = false;
-            return this;
+            if (RoomNumber == newBooking.RoomNumber && StartTime == newBooking.StartTime)
+            {
+                Console.WriteLine("Detta rum är redan bokat under den önskade tiden.");
+                return null; // Avsluta bokningen om tiden är upptagen
+            }
 
+
+            // Markera rummet som bokat
+            newBooking.IsAvailable = false;
+            return newBooking;
         }
+
 
         public void ShowAvailableRooms()
         {
@@ -169,6 +174,7 @@ namespace Bokningssystem_main
         {
             IsAvailable = true;
             DateTime unbookDateTime = new DateTime();
+            CombinedDateAndTime = unbookDateTime;
             BookingDate = unbookDateTime;
             StartTime = unbookDateTime;
             EndTime = unbookDateTime;
