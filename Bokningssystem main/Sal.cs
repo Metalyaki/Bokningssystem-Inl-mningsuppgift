@@ -178,7 +178,7 @@ namespace Bokningssystem_main
             return this;
         }
 
-        public void UpdateASalBooking(List<Sal> BokadeSalar)
+        public void UpdateASalBooking(List<Sal> BokadeSalar) // Pontus
         {
             if (BokadeSalar.Count == 0) // Kollar om de finns nå bokningar
             {
@@ -190,7 +190,7 @@ namespace Bokningssystem_main
             int displayIndex = 1; // Här gör jag så numreringen börjar från 1
             for (int i = 0; i < BokadeSalar.Count; i++)
             {
-                if (!BokadeSalar[i].IsAvailable) // Visar endast bokade grupprum
+                if (!BokadeSalar[i].IsAvailable) // Visar endast bokade salar
                 {
                     Console.WriteLine($"{displayIndex}. Salnummer: {BokadeSalar[i].RoomNumber},");
                     Console.WriteLine($"Datum: {BokadeSalar[i].BookingDate:dd/MM/yyyy},");
@@ -207,15 +207,21 @@ namespace Bokningssystem_main
             {
                 try
                 {
-                    Console.WriteLine("Välj numret för salen du vill uppdatera:");
+                    Console.WriteLine("Välj numret för salen du vill uppdatera (annars tryck 0 för att gå tillbaka i menyn):");
                     selection = int.Parse(Console.ReadLine());
 
-                    if (selection < 1 || selection > BokadeSalar.Count) // kollar så input är inom giltligt intervall
+                    if (selection == 0)
+                    {
+                        Console.WriteLine("Återgår till föregående meny.");
+                        return;
+                    }
+
+                    if (selection < 1 || selection > BokadeSalar.Count)
                     {
                         throw new FormatException("Numret finns inte med i listan var god försök igen.");
                     }
 
-                    validSelection = true; // avbryter loopen om input är giltlig
+                    validSelection = true; // stoppar loopen om inputen är giltlig
                 }
                 catch (FormatException ex)
                 {
@@ -226,7 +232,7 @@ namespace Bokningssystem_main
             Sal updateRoom = BokadeSalar[selection - 1]; // hämtar den valda bokningen
 
             bool validDate = false;
-            while (!validDate) // loopar tills input är giltligt datum
+            while (!validDate) // Loop för få ett detum input som är giltligt
             {
                 try
                 {
@@ -238,7 +244,7 @@ namespace Bokningssystem_main
                         throw new FormatException("Du kan inte skriva in ett datum som redan varit.");
                     }
 
-                    validDate = true;
+                    validDate = true; // stoppar loopen om datumet är giltligt.
                 }
                 catch (FormatException ex)
                 {
