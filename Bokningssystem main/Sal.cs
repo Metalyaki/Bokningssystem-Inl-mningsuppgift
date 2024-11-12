@@ -15,7 +15,7 @@ namespace Bokningssystem_main
         public string User { get; set; }
 
 
-        public Sal BookSal()
+        public Sal BookSal()//Skapade Av Anders
         {
             //Skapar en ny instans av rummet så att man kan skapa flera tider på samma rum
             //annars blir det att man skriver över tidigare data om man förösker skapa ny tid på ett rum
@@ -134,7 +134,7 @@ namespace Bokningssystem_main
         }
 
 
-        public void ShowAvailableRooms()
+        public void ShowAvailableRooms()//Skapade Av Anders
         {
             if (IsAvailable == true)
             {
@@ -145,7 +145,7 @@ namespace Bokningssystem_main
             }
         }
 
-        public void ShowBookings()
+        public void ShowBookings()//Skapade Av Anders
         {
             Console.WriteLine($"Bokning av Sal: {RoomNumber}");
             Console.WriteLine($"Datum: {CombinedDateAndTime.ToString("dd/MM/yyyy")}");
@@ -155,7 +155,7 @@ namespace Bokningssystem_main
             Console.WriteLine();
         }
 
-        public void TimerForBookings()
+        public void TimerForBookings()//Skapade Av Anders
         {
             DateTime currentTime = DateTime.Now;
 
@@ -169,7 +169,8 @@ namespace Bokningssystem_main
             }
         }
 
-        public Sal UnbookSal()
+
+        public Sal UnbookSal()//Skapade Av Anders
         {
             IsAvailable = true;
             DateTime unbookDateTime = new DateTime();
@@ -295,6 +296,8 @@ namespace Bokningssystem_main
         }
         public Sal CreateNewSal(List<Sal> AllaSalar) // Skapat av Pontus
         {
+            
+
             Console.WriteLine("Ange vad den nya salen ska ha för salnummer(annars tryck 0 för att gå tillbaka i menyn):");
             string inputNumber = Console.ReadLine().Trim();
 
@@ -310,6 +313,14 @@ namespace Bokningssystem_main
             {
                 Console.WriteLine("Du måste tilldela salen något nummer med siffror så den kan indentifieras: ");
                 inputNumber = Console.ReadLine().Trim();
+            }
+
+            if (AllaSalar.Any(sal => sal.RoomNumber == roomNumber.ToString()))
+            {
+                Console.WriteLine($"Ett rum med {roomNumber} finns redan.");
+                Console.ReadLine();
+                return null; // or prompt again
+                
             }
 
             Console.WriteLine("Ange kapacitet för salen: "); // Här får användaren skriva in kapacitet och de måste vara mer än noll.
@@ -377,7 +388,7 @@ namespace Bokningssystem_main
             return newSal;
         }
 
-        public override string ToString()
+        public override string ToString()//Skapade Av Anders
         {
             //Skriver ut vad rummen innehåller
             return $"Sal: {RoomNumber}" +
