@@ -15,7 +15,7 @@ namespace Bokningssystem_main
         public string User { get; set; }
 
 
-        public Sal BookSal()
+        public Sal BookSal()//Skapade Av Anders
         {
             //Skapar en ny instans av rummet så att man kan skapa flera tider på samma rum
             //annars blir det att man skriver över tidigare data om man förösker skapa ny tid på ett rum
@@ -134,7 +134,7 @@ namespace Bokningssystem_main
         }
 
 
-        public void ShowAvailableRooms()
+        public void ShowAvailableRooms()//Skapade Av Anders
         {
             if (IsAvailable)
             {
@@ -153,7 +153,7 @@ namespace Bokningssystem_main
             }
         }
 
-        public void ShowBookings()
+        public void ShowBookings()//Skapade Av Anders
         {
             Console.WriteLine($"Bokning av Sal: {RoomNumber}");
             Console.WriteLine($"Datum: {CombinedDateAndTime.ToString("dd/MM/yyyy")}");
@@ -163,7 +163,7 @@ namespace Bokningssystem_main
             Console.WriteLine();
         }
 
-        public void TimerForBookings()
+        public void TimerForBookings()//Skapade Av Anders
         {
             DateTime currentTime = DateTime.Now;
 
@@ -178,7 +178,7 @@ namespace Bokningssystem_main
         }
 
 
-        public Sal UnbookSal()
+        public Sal UnbookSal()//Skapade Av Anders
         {
             IsAvailable = true;
             DateTime unbookDateTime = new DateTime();
@@ -396,7 +396,7 @@ namespace Bokningssystem_main
             return newSal;
         }
 
-        public override string ToString()
+        public override string ToString()//Skapade Av Anders
         {
             //Skriver ut vad rummen innehåller
             return $"Sal: {RoomNumber}" +

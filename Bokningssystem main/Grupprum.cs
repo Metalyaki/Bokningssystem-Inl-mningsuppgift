@@ -16,7 +16,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
 
 	}
 
-    public Grupprum BookGrupprum() // Anders
+    public Grupprum BookGrupprum()//Skapade Av Anders
     {
         
         Grupprum newBooking = new Grupprum()
@@ -133,7 +133,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
     }
 
 
-    public void ShowAvailableRooms()
+    public void ShowAvailableRooms()//Skapade Av Anders
     { 
         if (IsAvailable == true)
         {
@@ -144,7 +144,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         }
     }
 
-    public void ShowBookings()
+    public void ShowBookings()//Skapade Av Anders
     {
         Console.WriteLine($"Bokning av Grupprum: {RoomNumber}");
         Console.WriteLine($"Datum: {CombinedDateAndTime.ToString("dd/MM/yyyy")}");
@@ -153,7 +153,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         Console.WriteLine($"Signerat av: {User}");
     }
 
-    public Grupprum UnbookGrupprum()
+    public Grupprum UnbookGrupprum()//Skapade Av Anders
     {
         IsAvailable = true;
         DateTime unbookDateTime = new DateTime();
@@ -166,7 +166,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         return this;
     }
 
-    public void UpdateABooking(List<Grupprum> BokadeGrupprum)
+    public void UpdateABooking(List<Grupprum> BokadeGrupprum)//Pontus
     {
         if (BokadeGrupprum.Count == 0) // Kontroll om det finns några bokningar
         {
@@ -272,7 +272,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         Console.ReadKey();
     }
 
-    public void TimerForBookings()
+    public void TimerForBookings()//Skapade Av Anders
     {
         DateTime currentTime = DateTime.Now;
 
@@ -286,7 +286,7 @@ public class Grupprum: Lokal, IBookable//Namn på de som jobbat med detta: Ander
         }
     }
 
-    public override string ToString()
+    public override string ToString()//Skapade Av Anders
     {
         //Skriver ut vad rummen innehåller
         return $"Grupprum: {RoomNumber}" +
