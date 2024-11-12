@@ -169,7 +169,6 @@ namespace Bokningssystem_main
             }
         }
 
-
         public Sal UnbookSal()
         {
             IsAvailable = true;
