@@ -332,7 +332,7 @@ namespace Bokningssystem_main
 
             Console.WriteLine("Har salen projektor? (ja/nej): "); // om användaren skriver ja blir de true, annars false.
             bool hasProjector = false;
-            while (true)
+            while (true)    
             {
                 string inputProjector = Console.ReadLine().Trim().ToLower();
                 if(inputProjector == "ja")

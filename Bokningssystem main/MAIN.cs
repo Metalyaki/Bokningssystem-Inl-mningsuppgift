@@ -13,19 +13,19 @@ namespace Bokningssystem_main
             List<Grupprum> AllaGrupprum = DataManager.LoadGrupprum();
             List<Sal> BokadeSalar = DataManager.LoadBookedSal();
             List<Sal> AllaSalar = DataManager.LoadSalar();
-
+                
             // Om det ej finns lokaler skapas 3 salar och 3 grupprum
             if (AllaGrupprum.Count < 3 && AllaSalar.Count < 3)
             {
-                AllaGrupprum.Add(new Grupprum { RoomNumber = "301", Capacity = 6, HasProjector = false, HasWhiteBoard = true, IsAvailable = true});
+                AllaGrupprum.Add(new Grupprum { RoomNumber = "301", Capacity = 6, HasProjector = false, HasWhiteBoard = true, IsAvailable = true });
                 AllaGrupprum.Add(new Grupprum { RoomNumber = "302", Capacity = 8, HasProjector = false, HasWhiteBoard = false, IsAvailable = true });
                 AllaGrupprum.Add(new Grupprum { RoomNumber = "303", Capacity = 12, HasProjector = true, HasWhiteBoard = true, IsAvailable = true });
-                                                                                                                             
-                AllaSalar.Add(new Sal { RoomNumber = "201", Capacity = 33, HasProjector = true, HasWhiteBoard = false, IsAvailable = true });
-                AllaSalar.Add(new Sal { RoomNumber = "202", Capacity = 40, HasProjector = true, HasWhiteBoard = true , IsAvailable = true });
-                AllaSalar.Add(new Sal { RoomNumber = "203", Capacity = 28, HasProjector = false, HasWhiteBoard = true , IsAvailable = true });
 
-                DataManager.SaveData(AllaSalar,AllaGrupprum);
+                AllaSalar.Add(new Sal { RoomNumber = "201", Capacity = 33, HasProjector = true, HasWhiteBoard = false, IsAvailable = true });
+                AllaSalar.Add(new Sal { RoomNumber = "202", Capacity = 40, HasProjector = true, HasWhiteBoard = true, IsAvailable = true });
+                AllaSalar.Add(new Sal { RoomNumber = "203", Capacity = 28, HasProjector = false, HasWhiteBoard = true, IsAvailable = true });
+
+                DataManager.SaveData(AllaSalar, AllaGrupprum);
             }
 
             // Huvudmenyn skrivs ut
@@ -82,7 +82,7 @@ namespace Bokningssystem_main
                                         }
 
                                         //Bokar rummet genom att köra bookroom metoden()
-                                        Console.WriteLine("Ange rumsnummer:");
+                                        Console.Write("Ange rumsnummer:");
                                         string nameOfSalToBook = Console.ReadLine();
 
                                         Sal salToBook = AllaSalar.FirstOrDefault(s => s.RoomNumber == nameOfSalToBook);
@@ -92,7 +92,7 @@ namespace Bokningssystem_main
                                             // Använd BookSal-metoden för att skapa bokningen
                                             Sal nyBokning = salToBook.BookSal();
                                             BokadeSalar.Add(nyBokning);
-                                            
+
                                             Console.WriteLine("Bokningen har sparats.");
                                         }
                                         else
@@ -107,7 +107,7 @@ namespace Bokningssystem_main
                                         // Metod för bokning av Grupprum
                                         // Loopar igenom och kollar vilka rum som är lediga
                                         Console.WriteLine("[Lediga Grupprum]");
-                                        foreach(var grupprum in AllaGrupprum)
+                                        foreach (var grupprum in AllaGrupprum)
                                         {
                                             Console.WriteLine(grupprum.ToString());
                                             Console.WriteLine();
@@ -125,7 +125,7 @@ namespace Bokningssystem_main
                                             // Använd BookSal-metoden för att skapa bokningen
                                             Grupprum newBooking = GrupprumToBook.BookGrupprum();
                                             BokadeGrupprum.Add(newBooking);
-                                            
+
                                             Console.WriteLine("Bokningen har sparats.");
                                         }
                                         else
@@ -221,7 +221,7 @@ namespace Bokningssystem_main
                                             }
                                         }
 
-                                        
+
                                         Console.WriteLine("Ange rumsnummer:");
                                         string unbookGrupprum = Console.ReadLine();
 
@@ -301,15 +301,15 @@ namespace Bokningssystem_main
                                                 sal.ShowBookings();
                                                 Console.WriteLine();
                                             }
-                                            
-                                            
+
+
                                         }
                                         if (!foundBookedSal)
                                         {
                                             Console.WriteLine("Det finns inga bokade Salar");
-                                            
+
                                         }
-                                        
+
                                     }
                                     else if (userInput == "Grupprum")
                                     {
@@ -323,14 +323,14 @@ namespace Bokningssystem_main
                                                 grupprum.ShowBookings();
                                                 Console.WriteLine();
                                             }
-                                            
+
                                         }
                                         if (!foundBookedGrupprum)
                                         {
                                             Console.WriteLine("Det finns inga bokade Grupprum");
-                                            
+
                                         }
-                                        
+
                                     }
                                     Console.WriteLine("Tryck valfri tangent för att återgå till menyn");
                                     Console.ReadKey();
@@ -350,32 +350,56 @@ namespace Bokningssystem_main
                                         // Metod för lista bokningar av salar från specifikt år
 
                                         Console.WriteLine("Vilket år vill du söka efter?");
-                                        int year = int.Parse(Console.ReadLine());
-
-                                        foreach (var sal in BokadeSalar)
+                                        if (int.TryParse(Console.ReadLine(), out int year))
                                         {
-                                            if (year == sal.StartTime.Year)
+                                            bool foundBookings = false;
+                                            foreach (var sal in BokadeSalar)
                                             {
-                                                sal.ShowBookings();
+                                                if (year == sal.StartTime.Year)
+                                                {
+                                                    sal.ShowBookings();
+                                                    foundBookings = true;
+                                                }
+                                            }
+
+                                            if (!foundBookings)
+                                            {
+                                                Console.WriteLine($"Inga bokningar hittades för år {year}.");
                                             }
                                         }
+                                        else
+                                        {
+                                            Console.WriteLine("Ogiltigt år. Vänligen ange ett giltigt årtal.");
+                                        }
+
                                     }
                                     else if (userInput == "Grupprum")
                                     {
                                         // Metod för lista bokningar av Grupprum från specifikt år
 
                                         Console.WriteLine("Vilket år vill du söka efter?");
-                                        int year = int.Parse(Console.ReadLine());
-
-                                        foreach (var grupprum in BokadeGrupprum)
+                                        if (int.TryParse(Console.ReadLine(), out int year))
                                         {
-                                            if (year == grupprum.StartTime.Year)
-                                            {
-                                                grupprum.ShowBookings();
-                                            }
-                                           
+                                            bool foundBookings = false;
 
+                                            foreach (var grupprum in BokadeGrupprum)
+                                            {
+                                                if (year == grupprum.StartTime.Year)
+                                                {
+                                                    grupprum.ShowBookings();
+                                                    foundBookings = true;
+                                                }
+                                            }
+                                            if (!foundBookings)
+                                            {
+                                                Console.WriteLine($"Inga bokningar hittades för{year}");
+                                            }
                                         }
+                                        else
+                                        {
+                                            Console.WriteLine("Ogiltigt år. Vänligen ange ett giltigt årtal.");
+                                        }
+
                                     }
                                     Console.WriteLine("Tryck valfri tangent för att återgå till menyn");
                                     Console.ReadKey();
@@ -441,7 +465,7 @@ namespace Bokningssystem_main
                         }
                         break;
 
-                        // Inställningar menyn skrivs ut
+                    // Inställningar menyn skrivs ut
                     case "3":
                         settingsMenu = true;
                         while (settingsMenu)
@@ -467,37 +491,55 @@ namespace Bokningssystem_main
                                                 BokadeGrupprum = BokadeGrupprum.OrderBy(gr => gr.User).ToList();
                                                 BokadeSalar = BokadeSalar.OrderBy(sal => sal.User).ToList();
                                                 Console.WriteLine("Bokningslista sorterad");
-                                                Thread.Sleep(1000);
+
+                                                Console.WriteLine("Sorterade Grupprum:");
+                                                foreach (var grupprum in BokadeGrupprum)
+                                                {
+                                                    grupprum.ShowBookings();
+                                                }
+
+                                                Console.WriteLine("Sorterade Salar:");
+                                                foreach (var sal in BokadeSalar)
+                                                {
+                                                    sal.ShowBookings();
+                                                }
+
+                                                Console.ReadKey();
                                                 break;
                                             case "2":
                                                 BokadeGrupprum = BokadeGrupprum.OrderByDescending(gr => gr.User).ToList();
                                                 BokadeSalar = BokadeSalar.OrderByDescending(sal => sal.User).ToList();
                                                 Console.WriteLine("Bokningslista sorterad");
-                                                Thread.Sleep(1000);
+                                                ShowSortedLists(BokadeGrupprum, BokadeSalar);
+                                                Console.ReadLine();
                                                 break;
                                             case "3":
                                                 BokadeGrupprum = BokadeGrupprum.OrderBy(gr => gr.StartTime).ToList();
                                                 BokadeSalar = BokadeSalar.OrderBy(sal => sal.StartTime).ToList();
                                                 Console.WriteLine("Bokningslista sorterad");
-                                                Thread.Sleep(1000);
+                                                ShowSortedLists(BokadeGrupprum, BokadeSalar);
+                                                Console.ReadLine();
                                                 break;
                                             case "4":
                                                 BokadeGrupprum = BokadeGrupprum.OrderByDescending(gr => gr.StartTime).ToList();
                                                 BokadeSalar = BokadeSalar.OrderByDescending(sal => sal.StartTime).ToList();
                                                 Console.WriteLine("Bokningslista sorterad");
-                                                Thread.Sleep(1000);
+                                                ShowSortedLists(BokadeGrupprum, BokadeSalar);
+                                                Console.ReadLine();
                                                 break;
                                             case "5":
                                                 BokadeGrupprum = BokadeGrupprum.OrderBy(gr => gr.CombinedDateAndTime).ToList();
                                                 BokadeSalar = BokadeSalar.OrderBy(sal => sal.CombinedDateAndTime).ToList();
                                                 Console.WriteLine("Bokningslista sorterad");
-                                                Thread.Sleep(1000);
+                                                ShowSortedLists(BokadeGrupprum, BokadeSalar);
+                                                Console.ReadLine();
                                                 break;
                                             case "6":
                                                 BokadeGrupprum = BokadeGrupprum.OrderByDescending(gr => gr.CombinedDateAndTime).ToList();
                                                 BokadeSalar = BokadeSalar.OrderByDescending(sal => sal.CombinedDateAndTime).ToList();
                                                 Console.WriteLine("Bokningslista sorterad");
-                                                Thread.Sleep(1000);
+                                                ShowSortedLists(BokadeGrupprum, BokadeSalar);
+                                                Console.ReadLine();
                                                 break;
                                             case "0":
                                                 sortingMenu = false;
@@ -609,6 +651,20 @@ namespace Bokningssystem_main
                         }
                 }
 
+            }
+            void ShowSortedLists(List<Grupprum> grupprumList, List<Sal> salList)
+            {
+                Console.WriteLine("Sorterade Grupprum:");
+                foreach (var grupprum in grupprumList)
+                {
+                    grupprum.ShowBookings();
+                }
+
+                Console.WriteLine("Sorterade Salar:");
+                foreach (var sal in salList)
+                {
+                    sal.ShowBookings();
+                }
             }
         }
 
