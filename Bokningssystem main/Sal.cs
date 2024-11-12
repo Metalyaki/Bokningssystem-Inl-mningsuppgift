@@ -302,6 +302,89 @@ namespace Bokningssystem_main
             updateRoom.IsAvailable = false; // Markerar bokningen som upptagen
             Console.WriteLine("Bokningen har uppdaterats.");
         }
+        public Sal CreateNewSal(List<Sal> AllaSalar) // Skapat av Pontus
+        {
+            Console.WriteLine("Ange vad den nya salen ska ha för salnummer(annars tryck 0 för att gå tillbaka i menyn):");
+            string inputNumber = Console.ReadLine().Trim();
+
+            if(inputNumber == "0") //Här kollar man om användaren vill gå tillbaka i menyn
+            {
+                Console.WriteLine("Återgår till förgående meny");
+                Thread.Sleep(2000);
+                return null; 
+            }
+
+            int roomNumber;
+            while (!int.TryParse(inputNumber, out roomNumber)) // Kollar så användaren skrivit in en heltal annars så ber användaren skriva in igen.
+            {
+                Console.WriteLine("Du måste tilldela salen något nummer med siffror så den kan indentifieras: ");
+                inputNumber = Console.ReadLine().Trim();
+            }
+
+            Console.WriteLine("Ange kapacitet för salen: "); // Här får användaren skriva in kapacitet och de måste vara mer än noll.
+            int capacity;
+            while(!int.TryParse(Console.ReadLine(), out capacity) ||  capacity <= 0)
+            {
+                Console.WriteLine("Kapaciteten måste vara mer än noll, och angiven i siffor. Var god och försök igen.");
+            }
+
+            Console.WriteLine("Har salen projektor? (ja/nej): "); // om användaren skriver ja blir de true, annars false.
+            bool hasProjector = false;
+            while (true)
+            {
+                string inputProjector = Console.ReadLine().Trim().ToLower();
+                if(inputProjector == "ja")
+                {
+                    hasProjector = true;
+                    break;
+                }
+                else if (inputProjector == "nej")
+                {
+                    hasProjector= false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Du måste ange 'ja' eller 'nej'. Var god försök igen: ");
+                }
+            }
+
+            Console.WriteLine("Har salen whiteboard? (ja/nej): ");
+            bool hasWhiteBoard = false;
+            while (true)
+            {
+                string inputWhiteBoard = Console.ReadLine().Trim().ToLower();
+                if (inputWhiteBoard == "ja")
+                {
+                    hasWhiteBoard = true;
+                    break;
+                }
+                else if(inputWhiteBoard == "nej")
+                {
+                    hasWhiteBoard= false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Du måste ange 'ja' eller 'nej'. Var god försök igen: ");
+                }
+            }
+
+            Sal newSal = new Sal // Här görs en ny instans av Sal och tilldelar egenskaperna
+            {
+                RoomNumber = roomNumber.ToString(),
+                Capacity = capacity,
+                HasProjector = hasProjector,
+                HasWhiteBoard = hasWhiteBoard,
+                IsAvailable = true
+            };
+
+            AllaSalar.Add(newSal);
+            Console.WriteLine("Skapning av sal lyckades, återgår till menyn.");
+            Thread.Sleep(2000);
+
+            return newSal;
+        }
 
         public override string ToString()
         {
