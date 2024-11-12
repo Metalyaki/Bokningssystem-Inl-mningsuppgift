@@ -304,6 +304,8 @@ namespace Bokningssystem_main
         }
         public Sal CreateNewSal(List<Sal> AllaSalar) // Skapat av Pontus
         {
+            
+
             Console.WriteLine("Ange vad den nya salen ska ha för salnummer(annars tryck 0 för att gå tillbaka i menyn):");
             string inputNumber = Console.ReadLine().Trim();
 
@@ -319,6 +321,14 @@ namespace Bokningssystem_main
             {
                 Console.WriteLine("Du måste tilldela salen något nummer med siffror så den kan indentifieras: ");
                 inputNumber = Console.ReadLine().Trim();
+            }
+
+            if (AllaSalar.Any(sal => sal.RoomNumber == roomNumber.ToString()))
+            {
+                Console.WriteLine($"Ett rum med {roomNumber} finns redan.");
+                Console.ReadLine();
+                return null; // or prompt again
+                
             }
 
             Console.WriteLine("Ange kapacitet för salen: "); // Här får användaren skriva in kapacitet och de måste vara mer än noll.
