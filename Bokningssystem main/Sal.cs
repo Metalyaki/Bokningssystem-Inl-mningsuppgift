@@ -136,14 +136,6 @@ namespace Bokningssystem_main
 
         public void ShowAvailableRooms()
         {
-            if (IsAvailable)
-            {
-                Console.WriteLine($"Sal {RoomNumber} är tillgängligt.");
-            }
-            else
-            {
-                Console.WriteLine($"Sal {RoomNumber} är bokad.");
-            }
             if (IsAvailable == true)
             {
                 Console.WriteLine($"Sal: {RoomNumber}" +
