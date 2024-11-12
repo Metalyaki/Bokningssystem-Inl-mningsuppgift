@@ -154,20 +154,6 @@ namespace Bokningssystem_main
                                     else if (userInput == "Grupprum")
                                     {
                                         // Metod för uppdatera bokning av grupprum
-                                        Console.WriteLine("Ange rumsnummer för bokningen du vill uppdatera:");
-                                        string roomNumberToUpdate = Console.ReadLine();
-
-                                        foreach (var sal in BokadeSalar)
-                                        {
-                                            if (roomNumberToUpdate == sal.RoomNumber)
-                                            {
-                                                Console.WriteLine("Ange ny starttid (yyyy-mm-dd:mm):");
-                                                sal.StartTime = DateTime.Parse(Console.ReadLine());
-                                                Console.WriteLine("Ange nu sluttid (yyyy-mm-dd:mm):");
-                                                sal.EndTime = DateTime.Parse(Console.ReadLine());
-                                            }
-                                        }
-
                                         var grupprum = new Grupprum();
                                         grupprum.UpdateABooking(BokadeGrupprum);
                                         DataManager.SaveBookings(BokadeSalar, BokadeGrupprum);
@@ -429,6 +415,8 @@ namespace Bokningssystem_main
 
                                 case "4":
                                     // Metod för att skapa sal
+                                    Sal createSal = new Sal();
+                                    createSal.CreateNewSal(AllaSalar);
                                     DataManager.SaveData(AllaSalar, AllaGrupprum);
                                     break;
 

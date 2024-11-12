@@ -396,32 +396,11 @@ namespace Bokningssystem_main
         }
         public Grupprum BookGrupprum()
         {
-            if (!IsAvailable)
-            {
-                IsAvailable = true;
-                Console.WriteLine($"Bokningen för sal {RoomNumber} har avbokats.");
-                return this;
-            }
-            else
-            {
-                Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
-
-            }
+            return null;
         }
         public Grupprum UnbookGrupprum()
         {
-            if (!IsAvailable)
-            {
-                Console.WriteLine("Ange ny starttid (yyyy-mm-dd:mm):");
-                StartTime = DateTime.Parse(Console.ReadLine());
-                Console.WriteLine("Ange ny sluttid (yyyy-mm-dd:mm):");
-                EndTime = DateTime.Parse(Console.ReadLine());
-                Console.WriteLine($"Bookning för Sal {RoomNumber} har uppdaterats.");
-            }
-            else
-            {
-                Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
-            }
+            return null;
         }
 
     }
