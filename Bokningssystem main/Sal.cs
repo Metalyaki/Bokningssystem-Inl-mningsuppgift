@@ -317,12 +317,13 @@ namespace Bokningssystem_main
             {
                 IsAvailable = true;
                 Console.WriteLine($"Bokningen för sal {RoomNumber} har avbokats.");
+                return this;
             }
             else
             {
                 Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
+
             }
-            return this;
         }
         public Grupprum UnbookGrupprum()
         {
