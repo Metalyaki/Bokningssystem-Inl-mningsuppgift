@@ -136,6 +136,14 @@ namespace Bokningssystem_main
 
         public void ShowAvailableRooms()
         {
+            if (IsAvailable)
+            {
+                Console.WriteLine($"Sal {RoomNumber} är tillgängligt.");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är bokad.");
+            }
             if (IsAvailable == true)
             {
                 Console.WriteLine($"Sal: {RoomNumber}" +
@@ -305,11 +313,31 @@ namespace Bokningssystem_main
         }
         public Grupprum BookGrupprum()
         {
-            throw new NotImplementedException();
+            if (!IsAvailable)
+            {
+                IsAvailable = true;
+                Console.WriteLine($"Bokningen för sal {RoomNumber} har avbokats.");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
+            }
+            return this;
         }
         public Grupprum UnbookGrupprum()
         {
-            throw new NotImplementedException();
+            if (!IsAvailable)
+            {
+                Console.WriteLine("Ange ny starttid (yyyy-mm-dd:mm):");
+                StartTime = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("Ange ny sluttid (yyyy-mm-dd:mm):");
+                EndTime = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine($"Bookning för Sal {RoomNumber} har uppdaterats.");
+            }
+            else
+            {
+                Console.WriteLine($"Sal {RoomNumber} är inte bokad.");
+            }
         }
 
     }
