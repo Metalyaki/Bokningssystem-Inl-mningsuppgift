@@ -4,6 +4,8 @@ Bokningssystem – Salar och Grupprum
 
 Skapat av Alfons Newberg, Anders Nguyen, Pontus Rodmalm, Alexander Andersson 
 
+Github repo:
+https://github.com/Metalyaki/Bokningssystem-Inl-mningsuppgift.git
 
 ○ Hur man startar och använder programmet 
 
